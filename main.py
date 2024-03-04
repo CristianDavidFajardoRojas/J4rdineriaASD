@@ -1,3 +1,4 @@
-from modules.getClients import searchName
+from tabulate import tabulate
+import modules.getClients as cliente
 
-searchName()
+print(tabulate(cliente.getAllClientsPaisegionCiudad(None, None, "Madrid"), tablefmt="grid"))
