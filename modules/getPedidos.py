@@ -68,6 +68,6 @@ def getAllPedidosEntregadosEnero():
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") != None):
             FechaEntregada = "/".join(val.get("fecha_entrega").split("-")[::-1])
             start = datetime.strptime(FechaEntregada, "%d/%m/%Y")
-            if val.get("estado") == "Entregado" and start.month == str(1).zfill(2):
+            if val.get("estado") == "Entregado" and start.month == 1:
                 EntregadosEnero.append(val)
     return EntregadosEnero
