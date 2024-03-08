@@ -95,7 +95,15 @@ def menu():
             
 1. Obtener todos los clientes ( Codigo y Nombre ).
 2. Obtener un cliente por el codigo ( Codigo y Nombre ).
-3. Obtener toda la informacion según el limite de credito y la ciudad.""")
+3. Obtener toda la información según el limite de credito y la ciudad.
+4. Obtener información de los clientes según su fax.
+5. Obtener toda la información con el codigo de empleados reporte de ventas.
+6. Obtener nombres y postales de los clientes.
+7. Obtener las direcciones de los clientes.
+8. Obtener la información de los clientes según su apellido.
+9. Obtener los nombres de los clientes que viven en españa.
+          """)
+
     opcion = int(input(f"""
             
 Seleccione una de las opciones: """))
@@ -112,3 +120,27 @@ Ingrese el limite de credito: """))
         ciudaad = input(f"""
 Ingrese la ciudad: """)
         print(tabulate(getAllClientsCreditCiudad(limiteCredito, ciudaad), headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion == 4:
+        faxx = int(input(f"""
+Ingrese el fax del cliente: """))
+        print(tabulate(getAllClientsMismoFax(faxx),headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion == 5:
+        codigoEmpleadoRepVentas = int(input(f"""
+Ingrese el codigo del empleado en el reporte de ventas: """))
+        print(tabulate(getAllClientsMismoCodigo_empleado_rep_ventas(codigoEmpleadoRepVentas),headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion == 6:
+        print(tabulate(getAllClientsNombrePostal(),headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion == 7:
+        print(tabulate(getAllClientsLineaDirecciones(),headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion ==8:
+        apellidoo = input(f"""
+Escriba el apellido del cliente: """)
+        print(tabulate(getAllclientsApellidoContacto(apellidoo),headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion == 9:
+        print(tabulate(getAllNombresSpain(),headers="keys", tablefmt="rounded_grid"))
