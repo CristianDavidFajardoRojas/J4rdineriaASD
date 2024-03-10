@@ -17,9 +17,10 @@ def menu():
                                                      | |            
                                                      |_|            
 1. Cliente
-2. Oficina
-3. Empleados
-4. Pedidos""")
+2. Empleados
+3. Pedidos
+4. Oficina
+5. Pagos""")
       
       opcion = int(input(f"""
                          
@@ -29,7 +30,7 @@ Seleccione una de las opciones: """))
       elif (opcion == 2):
             Empleados.menu()
       elif (opcion == 3):
-            Pedidos.menu()
+            Pedidos.ReportesDePedidos()
       elif (opcion == 4):
             Oficina.menu()
       elif (opcion == 5):

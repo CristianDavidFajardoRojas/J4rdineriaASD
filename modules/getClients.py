@@ -23,7 +23,19 @@ def getAllClientsCreditCiudad(limiteCredit, ciudad):
     clienteCredito = list()
     for val in cli.clientes:
         if(val.get("limite_credito") >= limiteCredit and val.get("ciudad") == ciudad):
-            clienteCredito.append(val)
+            clienteCredito.append({
+                "Codigo":val.get("codigo_cliente"),
+                "Nombre":val.get("nombre_cliente"),
+                "Contacto":f'{val.get("nombre_contacto")} {val.get("apellido_contacto")}',
+                "Telefono":val.get("telefono"),
+                "Fax":val.get("fax"),
+                "Direccion": f'{val.get("linea_direccion1")} / {val.get("linea_direccion2")}',
+                "Pais":val.get("pais"),
+                "Ciudad":val.get("ciudad"),
+                "Codigo Postal":val.get("codigo_postal"),
+                "Codigo rep. de ventas":val.get("codigo_empleado_rep_ventas"),
+                "Limite de Credito":val.get("limite_credito")
+            })
     return clienteCredito
 
 def getAllClientsPaisegionCiudad(Pais, Region=None, Ciudad=None):
@@ -42,27 +54,51 @@ def getAllClientsMismoFax(Fax):
     ClientFax = list()
     for val in cli.clientes:
         if (val.get("fax") == Fax):
-            ClientFax.append(val)
+            ClientFax.append({
+                "Codigo":val.get("codigo_cliente"),
+                "Nombre":val.get("nombre_cliente"),
+                "Contacto":f'{val.get("nombre_contacto")} {val.get("apellido_contacto")}',
+                "Telefono":val.get("telefono"),
+                "Fax":val.get("fax"),
+                "Direccion": f'{val.get("linea_direccion1")} / {val.get("linea_direccion2")}',
+                "Pais":val.get("pais"),
+                "Ciudad":val.get("ciudad"),
+                "Codigo Postal":val.get("codigo_postal"),
+                "Codigo rep. de ventas":val.get("codigo_empleado_rep_ventas"),
+                "Limite de Credito":val.get("limite_credito")
+            })
     return ClientFax
 
 def getAllClientsMismoCodigo_empleado_rep_ventas(Codigo):
     CodigoEmpleado = list()
     for val in cli.clientes:
         if val.get("codigo_empleado_rep_ventas") == Codigo:
-            CodigoEmpleado.append(val)
+            CodigoEmpleado.append({
+                "Codigo":val.get("codigo_cliente"),
+                "Nombre":val.get("nombre_cliente"),
+                "Contacto":f'{val.get("nombre_contacto")} {val.get("apellido_contacto")}',
+                "Telefono":val.get("telefono"),
+                "Fax":val.get("fax"),
+                "Direccion": f'{val.get("linea_direccion1")} / {val.get("linea_direccion2")}',
+                "Pais":val.get("pais"),
+                "Ciudad":val.get("ciudad"),
+                "Codigo Postal":val.get("codigo_postal"),
+                "Codigo rep. de ventas":val.get("codigo_empleado_rep_ventas"),
+                "Limite de Credito":val.get("limite_credito")
+            })
     return CodigoEmpleado
 
 def getAllClientsNombrePostal():
     NombreYPostal = list()
     for val in cli.clientes:
-        datos = dict({"Nombre_Cliente": val.get("nombre_cliente"), "Codigo_Postal": val.get("codigo_postal")})
+        datos = dict({"Nombre Cliente": val.get("nombre_cliente"), "Codigo Postal": val.get("codigo_postal")})
         NombreYPostal.append(datos)
     return NombreYPostal
 
 def getAllClientsLineaDirecciones():
     direcciones = list()
     for val in cli.clientes:
-        direccion1y2 = dict({"Nombre":val.get("nombre_cliente"), "Direccion_1":val.get("linea_direccion1"),"Direccion_2":val.get("linea_direccion2")})
+        direccion1y2 = dict({"Nombre":val.get("nombre_cliente"), "Direccion":f'{val.get("linea_direccion1")} / {val.get("linea_direccion2")}'})
         direcciones.append(direccion1y2)
     return direcciones
 
@@ -70,7 +106,19 @@ def getAllclientsApellidoContacto(apellido):
     apellidos = list()
     for val in cli.clientes:
         if (val.get("apellido_contacto") == apellido):
-            apellidos.append(val)
+            apellidos.append({
+                "Codigo":val.get("codigo_cliente"),
+                "Nombre":val.get("nombre_cliente"),
+                "Contacto":f'{val.get("nombre_contacto")} {val.get("apellido_contacto")}',
+                "Telefono":val.get("telefono"),
+                "Fax":val.get("fax"),
+                "Direccion": f'{val.get("linea_direccion1")} / {val.get("linea_direccion2")}',
+                "Pais":val.get("pais"),
+                "Ciudad":val.get("ciudad"),
+                "Codigo Postal":val.get("codigo_postal"),
+                "Codigo rep. de ventas":val.get("codigo_empleado_rep_ventas"),
+                "Limite de Credito":val.get("limite_credito")
+            })
     return apellidos
 
 #punto 7
@@ -97,7 +145,7 @@ def menu():
 2. Obtener un cliente por el codigo ( Codigo y Nombre ).
 3. Obtener toda la información según el limite de credito y la ciudad.
 4. Obtener información de los clientes según su fax.
-5. Obtener toda la información con el codigo de empleados reporte de ventas.
+5. Obtener toda la información con el codigo del representante de ventas.
 6. Obtener nombres y postales de los clientes.
 7. Obtener las direcciones de los clientes.
 8. Obtener la información de los clientes según su apellido.
@@ -122,7 +170,7 @@ Ingrese la ciudad: """)
         print(tabulate(getAllClientsCreditCiudad(limiteCredito, ciudaad), headers="keys", tablefmt="rounded_grid"))
 
     elif opcion == 4:
-        faxx = int(input(f"""
+        faxx = (input(f"""
 Ingrese el fax del cliente: """))
         print(tabulate(getAllClientsMismoFax(faxx),headers="keys", tablefmt="rounded_grid"))
 

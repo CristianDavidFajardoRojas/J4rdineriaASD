@@ -1,5 +1,6 @@
 import storages.pedido as ped
 from datetime import datetime
+from tabulate import tabulate
 
 def getAllEstadosPedido():
     pedidoEstado = []
@@ -71,3 +72,37 @@ def getAllPedidosEntregadosEnero():
             if val.get("estado") == "Entregado" and start.month == 1:
                 EntregadosEnero.append(val)
     return EntregadosEnero
+
+def ReportesDePedidos():
+    print(f"""
+    ____                        __                   __        ____           ___     __          
+   / __ \___  ____  ____  _____/ /____  _____   ____/ /__     / __ \___  ____/ (_)___/ /___  _____
+  / /_/ / _ \/ __ \/ __ \/ ___/ __/ _ \/ ___/  / __  / _ \   / /_/ / _ \/ __  / / __  / __ \/ ___/
+ / _, _/  __/ /_/ / /_/ / /  / /_/  __(__  )  / /_/ /  __/  / ____/  __/ /_/ / / /_/ / /_/ (__  ) 
+/_/ |_|\___/ .___/\____/_/   \__/\___/____/   \__,_/\___/  /_/    \___/\__,_/_/\__,_/\____/____/  
+          /_/                                                                                     
+          
+1. Obtener el estado del pedido ( Entregado, Rechazado o Pendiente ).
+2. Lista de pedidos atrasados de tiempo. 
+3. Lista de pedidos entregados con anterioridad de 2 o mas dias.
+4. Lista de pedidos Rechazados en el año 2009.
+5. Lista de pedidos Entregados en el mes de enero de cualquier año. 
+""")
+    
+    opcion = int(input(f"""
+Seleccione una de las opciones: """))
+    
+    if opcion == 1:
+        print(tabulate(getAllEstadosPedido(), headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion == 2:
+        print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="rounded_grid")) 
+
+    elif opcion == 3:
+        print(tabulate(getAllPedidosEntregadosAlmenos2DiasAntes(), headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion == 4:
+        print(tabulate(getAllPedidosRechazados2009(), headers="keys", tablefmt="rounded_grid"))
+
+    elif opcion == 5:
+        print(tabulate(getAllPedidosEntregadosEnero(), headers="keys", tablefmt="rounded_grid"))  
