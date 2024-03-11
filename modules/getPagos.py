@@ -33,7 +33,8 @@ def getAllFormasDePago():
     return FormaPago
 
 def menu():
-    print(f"""
+    while True:
+        print(f"""
     ____                        __                   __        ____                        
    / __ \___  ____  ____  _____/ /____  _____   ____/ /__     / __ \____ _____ _____  _____
   / /_/ / _ \/ __ \/ __ \/ ___/ __/ _ \/ ___/  / __  / _ \   / /_/ / __ `/ __ `/ __ \/ ___/
@@ -46,15 +47,18 @@ def menu():
 3. Obtener lista de formas de pago.          
           """)
     
-    opcion = int(input(f"""
-                    
-Seleccione una de las opciones: """))
-    
-    if opcion == 1:
-        print(tabulate(getAllPagos2008(), headers="keys", tablefmt="rounded_grid"))
+        opcion = int(input(f"""
+                        
+    Seleccione una de las opciones: """))
+        
+        if opcion == 1:
+            print(tabulate(getAllPagos2008(), headers="keys", tablefmt="rounded_grid"))
 
-    if opcion == 2:
-        print(tabulate(getAllPaypal2008(), headers="keys", tablefmt="rounded_grid"))
+        if opcion == 2:
+            print(tabulate(getAllPaypal2008(), headers="keys", tablefmt="rounded_grid"))
 
-    if opcion == 3:
-        print(tabulate(getAllFormasDePago(), headers="keys", tablefmt="rounded_grid"))
+        if opcion == 3:
+            print(tabulate(getAllFormasDePago(), headers="keys", tablefmt="rounded_grid"))
+            
+        if opcion == 0:
+            break

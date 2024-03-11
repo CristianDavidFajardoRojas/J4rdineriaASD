@@ -39,7 +39,8 @@ def getAllNombreApellidosPuestoNoRepVentas():
     return InfoNoRepVentas
 
 def menu():
-    print(f"""
+    while True:
+        print(f"""
           
     ____                        __                                    __               __          
    / __ \___  ____  ____  _____/ /____  _____   ___  ____ ___  ____  / /__  ____ _____/ /___  _____
@@ -51,19 +52,24 @@ def menu():
 
 1. Obtener información con el codigo jefe.
 2. Obtener información del director general.
-3. Obtener nombres de los empleados que no son representates de ventas. 
+3. Obtener nombres de los empleados que no son representates de ventas.
+
+0. Regresar al menu principal.
 """)
-    opcion = int(input(f"""
+        opcion = int(input(f"""
 
-Seleccione una de las opciones: """))
-    if opcion == 1:
-        codigojefe = int(input(f"""
-                           
-Ingrese el codigo de jefe: """))
-        print(tabulate(getAllNombreApellidoEmailJefe(codigojefe), headers="keys", tablefmt="rounded_grid"))
+    Seleccione una de las opciones: """))
+        if opcion == 1:
+            codigojefe = int(input(f"""
+                            
+    Ingrese el codigo de jefe: """))
+            print(tabulate(getAllNombreApellidoEmailJefe(codigojefe), headers="keys", tablefmt="rounded_grid"))
 
-    if opcion == 2:
-        print(tabulate(getAllPuestoNombreApellidosEmailJefe(), headers="keys", tablefmt="rounded_grid"))
+        if opcion == 2:
+            print(tabulate(getAllPuestoNombreApellidosEmailJefe(), headers="keys", tablefmt="rounded_grid"))
 
-    if opcion == 3:
-        print(tabulate(getAllNombreApellidosPuestoNoRepVentas(), headers="keys", tablefmt="rounded_grid"))
+        if opcion == 3:
+            print(tabulate(getAllNombreApellidosPuestoNoRepVentas(), headers="keys", tablefmt="rounded_grid"))
+            
+        if opcion == 0:
+            break

@@ -74,7 +74,8 @@ def getAllPedidosEntregadosEnero():
     return EntregadosEnero
 
 def ReportesDePedidos():
-    print(f"""
+    while True:
+        print(f"""
     ____                        __                   __        ____           ___     __          
    / __ \___  ____  ____  _____/ /____  _____   ____/ /__     / __ \___  ____/ (_)___/ /___  _____
   / /_/ / _ \/ __ \/ __ \/ ___/ __/ _ \/ ___/  / __  / _ \   / /_/ / _ \/ __  / / __  / __ \/ ___/
@@ -89,20 +90,23 @@ def ReportesDePedidos():
 5. Lista de pedidos Entregados en el mes de enero de cualquier año. 
 """)
     
-    opcion = int(input(f"""
+        opcion = int(input(f"""
 Seleccione una de las opciones: """))
     
-    if opcion == 1:
-        print(tabulate(getAllEstadosPedido(), headers="keys", tablefmt="rounded_grid"))
+        if opcion == 1:
+            print(tabulate(getAllEstadosPedido(), headers="keys", tablefmt="rounded_grid"))
 
-    elif opcion == 2:
-        print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="rounded_grid")) 
+        elif opcion == 2:
+            print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="rounded_grid")) 
 
-    elif opcion == 3:
-        print(tabulate(getAllPedidosEntregadosAlmenos2DiasAntes(), headers="keys", tablefmt="rounded_grid"))
+        elif opcion == 3:
+            print(tabulate(getAllPedidosEntregadosAlmenos2DiasAntes(), headers="keys", tablefmt="rounded_grid"))
 
-    elif opcion == 4:
-        print(tabulate(getAllPedidosRechazados2009(), headers="keys", tablefmt="rounded_grid"))
+        elif opcion == 4:
+            print(tabulate(getAllPedidosRechazados2009(), headers="keys", tablefmt="rounded_grid"))
 
-    elif opcion == 5:
-        print(tabulate(getAllPedidosEntregadosEnero(), headers="keys", tablefmt="rounded_grid"))  
+        elif opcion == 5:
+            print(tabulate(getAllPedidosEntregadosEnero(), headers="keys", tablefmt="rounded_grid"))
+        
+        elif opcion == 0:
+            break 

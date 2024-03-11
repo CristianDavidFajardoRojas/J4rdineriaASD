@@ -6,7 +6,8 @@ import modules.getOficina as Oficina
 import modules.getPagos as Pag
 
 def menu():
-      print(f"""
+      while True:
+            print(f"""
             
   __  __                    _____      _            _             _ 
  |  \/  |                  |  __ \    (_)          (_)           | |
@@ -20,21 +21,30 @@ def menu():
 2. Empleados
 3. Pedidos
 4. Oficina
-5. Pagos""")
-      
-      opcion = int(input(f"""
+5. Pagos
+
+0. Salir""")
+            
+            opcion = int(input(f"""
                          
 Seleccione una de las opciones: """))
-      if (opcion == 1):
-            cliente.menu()
-      elif (opcion == 2):
-            Empleados.menu()
-      elif (opcion == 3):
-            Pedidos.ReportesDePedidos()
-      elif (opcion == 4):
-            Oficina.menu()
-      elif (opcion == 5):
-            Pag.menu()
+            if (opcion == 1):
+                  cliente.menu()
+            elif (opcion == 2):
+                  Empleados.menu()
+            elif (opcion == 3):
+                  Pedidos.ReportesDePedidos()
+            elif (opcion == 4):
+                  Oficina.menu()
+            elif (opcion == 5):
+                  Pag.menu()
+            elif (opcion == 0):
+                  print(f"""
+                        
+Gracias por usar el servicio, vuelva pronto!""")
+                  break
             
       
 menu()
+            
+    

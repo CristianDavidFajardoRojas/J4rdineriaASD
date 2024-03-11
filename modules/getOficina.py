@@ -1,5 +1,6 @@
 import storages.oficina as of
 from tabulate import tabulate
+import keyboard
 
 def getAllCodigoCiudad():
     codigoCiudad = []
@@ -34,7 +35,8 @@ def getAllDirecciones():
     return Direcciones
 
 def menu():
-    print(f"""
+    while True:
+        print(f"""
     ____                        __                   __        ____  _____      _                 
    / __ \___  ____  ____  _____/ /____  _____   ____/ /__     / __ \/ __(_)____(_)___  ____ ______
   / /_/ / _ \/ __ \/ __ \/ ___/ __/ _ \/ ___/  / __  / _ \   / / / / /_/ / ___/ / __ \/ __ `/ ___/
@@ -48,17 +50,23 @@ def menu():
 3. Obtener las direcciones de las oficinas.
 """)
     
-    opcion = int(input(f"""
-                    
-Seleccione una de las opciones: """))
-    
-    if opcion == 1:
-        print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="rounded_grid"))
+        opcion = int(input(f"""
+                        
+    Seleccione una de las opciones: """))
+        
+        if opcion == 1:
+            print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="rounded_grid"))
 
-    if opcion == 2:
-        paais = input(f"""
-Ingrese el pais: """)
-        print(tabulate(getAllCiudadTelefono(paais), headers="keys", tablefmt="rounded_grid"))
+        if opcion == 2:
+            paais = input(f"""
+    Ingrese el pais: """)
+            if keyboard.is_pressed('ctrl') and keyboard.is_pressed('c'):
+                print("Se presionó Ctrl + C. Saliendo del bucle.")
+                break
+            print(tabulate(getAllCiudadTelefono(paais), headers="keys", tablefmt="rounded_grid"))
 
-    if opcion == 3:
-        print(tabulate(getAllDirecciones(), headers="keys", tablefmt="rounded_grid"))
+        if opcion == 3:
+            print(tabulate(getAllDirecciones(), headers="keys", tablefmt="rounded_grid"))
+            
+        if opcion == 0:
+            break

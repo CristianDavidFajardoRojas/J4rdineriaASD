@@ -131,13 +131,14 @@ def getAllNombresSpain():
     return nombresEspaña
             
 def menu():
-    print(f"""
-  _____                       _                  _             _ _            _            
- |  __ \                     | |                | |           | (_)          | |           
- | |__) |___ _ __   ___  _ __| |_ ___  ___    __| | ___    ___| |_  ___ _ __ | |_ ___  ___ 
- |  _  // _ \ '_ \ / _ \| '__| __/ _ \/ __|  / _` |/ _ \  / __| | |/ _ \ '_ \| __/ _ \/ __|
- | | \ \  __/ |_) | (_) | |  | ||  __/\__ \ | (_| |  __/ | (__| | |  __/ | | | ||  __/\__ /
- |_|  \_\___| .__/ \___/|_|  \__\ ___||___/  \__,_|\___|  \___|_|_|\___|_| |_|\__\___||___/
+    while True:
+        print(f"""
+ _____                       _                  _             _ _            _            
+|  __ \                     | |                | |           | (_)          | |           
+| |__) |___ _ __   ___  _ __| |_ ___  ___    __| | ___    ___| |_  ___ _ __ | |_ ___  ___ 
+|  _  // _ \ '_ \ / _ \| '__| __/ _ \/ __|  / _` |/ _ \  / __| | |/ _ \ '_ \| __/ _ \/ __|
+| | \ \  __/ |_) | (_) | |  | ||  __/\__ \ | (_| |  __/ | (__| | |  __/ | | | ||  __/\__ /
+|_|  \_\___| .__/ \___/|_|  \__\ ___||___/  \__,_|\___|  \___|_|_|\___|_| |_|\__\___||___/
             |_|                                                                                                                                             
         
             
@@ -150,45 +151,59 @@ def menu():
 7. Obtener las direcciones de los clientes.
 8. Obtener la información de los clientes según su apellido.
 9. Obtener los nombres de los clientes que viven en españa.
-          """)
 
-    opcion = int(input(f"""
+0. Regresar al menu principal.
+        """)
+
+        opcion = int(input(f"""
+                
+    Seleccione una de las opciones: """))
+        if opcion == 1:
+            print(tabulate(search(), headers="keys", tablefmt="rounded_grid"))
             
-Seleccione una de las opciones: """))
-    if opcion == 1:
-        print(tabulate(search(), headers="keys", tablefmt="rounded_grid"))
-    elif opcion == 2:
-        codigocliente = int(input(f"""
-Ingrese el codigo del cliente: """))
-        print(tabulate(getOneClienteCodigo(codigocliente), headers="keys", tablefmt="rounded_grid"))
-    elif opcion == 3:
-        limiteCredito = float(input(f"""
+        elif opcion == 2:
+            codigocliente = int(input(f"""
+    Ingrese el codigo del cliente: """))
+            print(tabulate(getOneClienteCodigo(codigocliente), headers="keys", tablefmt="rounded_grid"))
+            
+        elif opcion == 3:
+            limiteCredito = float(input(f"""
 
-Ingrese el limite de credito: """))
-        ciudaad = input(f"""
-Ingrese la ciudad: """)
-        print(tabulate(getAllClientsCreditCiudad(limiteCredito, ciudaad), headers="keys", tablefmt="rounded_grid"))
+    Ingrese el limite de credito: """))
+            ciudaad = input(f"""
+    Ingrese la ciudad: """)
+            print(tabulate(getAllClientsCreditCiudad(limiteCredito, ciudaad), headers="keys", tablefmt="rounded_grid"))
+            
 
-    elif opcion == 4:
-        faxx = (input(f"""
-Ingrese el fax del cliente: """))
-        print(tabulate(getAllClientsMismoFax(faxx),headers="keys", tablefmt="rounded_grid"))
+        elif opcion == 4:
+            faxx = (input(f"""
+    Ingrese el fax del cliente: """))
+            print(tabulate(getAllClientsMismoFax(faxx),headers="keys", tablefmt="rounded_grid"))
+            
 
-    elif opcion == 5:
-        codigoEmpleadoRepVentas = int(input(f"""
-Ingrese el codigo del empleado en el reporte de ventas: """))
-        print(tabulate(getAllClientsMismoCodigo_empleado_rep_ventas(codigoEmpleadoRepVentas),headers="keys", tablefmt="rounded_grid"))
+        elif opcion == 5:
+            codigoEmpleadoRepVentas = int(input(f"""
+    Ingrese el codigo del empleado en el reporte de ventas: """))
+            print(tabulate(getAllClientsMismoCodigo_empleado_rep_ventas(codigoEmpleadoRepVentas),headers="keys", tablefmt="rounded_grid"))
+            
 
-    elif opcion == 6:
-        print(tabulate(getAllClientsNombrePostal(),headers="keys", tablefmt="rounded_grid"))
+        elif opcion == 6:
+            print(tabulate(getAllClientsNombrePostal(),headers="keys", tablefmt="rounded_grid"))
+            
 
-    elif opcion == 7:
-        print(tabulate(getAllClientsLineaDirecciones(),headers="keys", tablefmt="rounded_grid"))
+        elif opcion == 7:
+            print(tabulate(getAllClientsLineaDirecciones(),headers="keys", tablefmt="rounded_grid"))
+            
 
-    elif opcion ==8:
-        apellidoo = input(f"""
-Escriba el apellido del cliente: """)
-        print(tabulate(getAllclientsApellidoContacto(apellidoo),headers="keys", tablefmt="rounded_grid"))
+        elif opcion ==8:
+            apellidoo = input(f"""
+    Escriba el apellido del cliente: """)
+            print(tabulate(getAllclientsApellidoContacto(apellidoo),headers="keys", tablefmt="rounded_grid"))
+            
 
-    elif opcion == 9:
-        print(tabulate(getAllNombresSpain(),headers="keys", tablefmt="rounded_grid"))
+        elif opcion == 9:
+            print(tabulate(getAllNombresSpain(),headers="keys", tablefmt="rounded_grid"))
+            
+        
+        elif opcion == 0:
+            break
