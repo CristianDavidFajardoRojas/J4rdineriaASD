@@ -1,4 +1,6 @@
 import storages.pago as pag
+import storages.cliente as cli
+import storages.empleados as em
 from datetime import datetime
 from tabulate import tabulate
 
@@ -32,6 +34,34 @@ def getAllFormasDePago():
             FormaPagoRepetida.add(val.get("forma_pago"))
     return FormaPago
 
+def getAllNombreClientesYSuRepresentanteConPago():
+    ListoNose = list()
+    Repetidos = set()
+    for val in cli.clientes:
+        for cris in em.empleados:
+            for juan in pag.pago:
+                if(juan.get("codigo_cliente") == val.get("codigo_cliente"))and(val.get("codigo_empleado_rep_ventas") == cris.get("codigo_empleado")):
+                    if val.get("nombre_cliente") not in ListoNose:
+                        ListoNose.append({
+                        "Nombre Cliente": val.get("nombre_cliente"),
+                        "Representante de ventas": f'{cris.get("nombre")} {cris.get("apellido1")}'
+                    })
+                        Repetidos.add(val.get("nombre_cliente"))
+    return ListoNose
+
+def getAllNombreClientesYSuRepresentantesSINPago():
+    ListoNose = list()
+    Repetidos = set()
+    for val in cli.clientes:
+        for cris in em.empleados:
+            for juan in pag.pago:
+                if(juan.get("codigo_cliente") != val.get("codigo_cliente"))and(val.get("codigo_empleado_rep_ventas") == cris.get("codigo_empleado")):
+                    ListoNose.append({
+                        "Nombre Cliente": val.get("nombre_cliente"),
+                    "Representante de ventas": f'{cris.get("nombre")} {cris.get("apellido1")}'
+                    })
+    return ListoNose
+
 def menu():
     while True:
         print(f"""
@@ -45,6 +75,8 @@ def menu():
 1. Obtener lista de pagos realizados en 2008.
 2. Obtener lista de pagos realizados por medio de "Paypal".
 3. Obtener lista de formas de pago.  
+4. Obtener clientes y su representante de los que tienen pago.
+5. Obtener clientes y su representante de los que NO tienen pago.  
 
 0. Regresar al menu principal.        
           """)
@@ -61,6 +93,12 @@ def menu():
 
         if opcion == 3:
             print(tabulate(getAllFormasDePago(), headers="keys", tablefmt="rounded_grid"))
+
+        if opcion == 4:
+            print(tabulate(getAllNombreClientesYSuRepresentanteConPago(), headers="keys", tablefmt="rounded_grid"))
+
+        if opcion == 5:
+            print(tabulate(getAllNombreClientesYSuRepresentantesSINPago(), headers="keys", tablefmt="rounded_grid"))
             
         if opcion == 0:
             break

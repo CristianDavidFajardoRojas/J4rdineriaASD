@@ -1,5 +1,6 @@
 import storages.cliente as cli
-from tabulate import tabulate
+from tabulate import tabulate 
+import storages.empleados as em
 
 def search():
     ClienteName = list()
@@ -129,7 +130,41 @@ def getAllNombresSpain():
             nombresEspaña.append({"nombre":val.get("nombre_cliente"),
                                   "Pais":val.get("pais")})
     return nombresEspaña
-            
+
+def getAllClientsMadridYRepVentas11o30():
+    MadridYCodigoRepresentante = list()
+    for val in cli.clientes:
+        if val.get("ciudad") == "Madrid" and (val.get("codigo_empleado_rep_ventas") == 11 or 30):
+                MadridYCodigoRepresentante.append({
+                "Codigo":val.get("codigo_cliente"),
+                "Nombre":val.get("nombre_cliente"),
+                "Contacto":f'{val.get("nombre_contacto")} {val.get("apellido_contacto")}',
+                "Telefono":val.get("telefono"),
+                "Fax":val.get("fax"),
+                "Direccion": f'{val.get("linea_direccion1")} / {val.get("linea_direccion2")}',
+                "Pais":val.get("pais"),
+                "Ciudad":val.get("ciudad"),
+                "Codigo Postal":val.get("codigo_postal"),
+                "Codigo rep. de ventas":val.get("codigo_empleado_rep_ventas"),
+                "Limite de Credito":val.get("limite_credito")
+                })
+    return MadridYCodigoRepresentante
+
+def getAllClientsYRepresentantes():
+    ClientesYSuRepresentante = list()
+    for val in cli.clientes:
+        for cris in em.empleados:
+            if val.get("codigo_empleado_rep_ventas") == cris.get("codigo_empleado"):
+                ClientesYSuRepresentante.append({
+                    "Nombre Cliente": val.get("nombre_cliente"),
+                    "Representante de ventas": f'{cris.get("nombre")} {cris.get("apellido1")}'
+                })
+    return ClientesYSuRepresentante
+
+
+
+
+
 def menu():
     while True:
         print(f"""
@@ -151,6 +186,8 @@ def menu():
 7. Obtener las direcciones de los clientes.
 8. Obtener la información de los clientes según su apellido.
 9. Obtener los nombres de los clientes que viven en españa.
+10. Obtener informaciòn de los clientes de madrid con representante de ventas codigo 11 o 30.
+11. Obtener nombre de los clientes con el nombre de su representante de ventas.
 
 0. Regresar al menu principal.
         """)
@@ -203,6 +240,14 @@ def menu():
 
         elif opcion == 9:
             print(tabulate(getAllNombresSpain(),headers="keys", tablefmt="rounded_grid"))
+
+        elif opcion == 10:
+            print(tabulate(getAllClientsMadridYRepVentas11o30(),headers="keys", tablefmt="rounded_grid"))
+
+        elif opcion == 11:
+            print(tabulate(getAllClientsYRepresentantes(),headers="keys", tablefmt="rounded_grid"))
+
+
             
         
         elif opcion == 0:
