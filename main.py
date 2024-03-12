@@ -4,6 +4,7 @@ import modules.getEmpleados as Empleados
 import modules.getPedidos as Pedidos
 import modules.getOficina as Oficina
 import modules.getPagos as Pag
+import modules.getProducto as Produc
 
 def menu():
       while True:
@@ -22,6 +23,7 @@ def menu():
 3. Pedidos
 4. Oficina
 5. Pagos
+6. Productos 
 
 0. Salir""")
             
@@ -38,6 +40,8 @@ Seleccione una de las opciones: """))
                   Oficina.menu()
             elif (opcion == 5):
                   Pag.menu()
+            elif (opcion == 6):
+                  Produc.menu()
             elif (opcion == 0):
                   print(f"""
                         

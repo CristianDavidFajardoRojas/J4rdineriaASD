@@ -48,6 +48,8 @@ def menu():
 1. Obtener el codigo de la oficina y su ciudad.
 2. Obtener información según el pais.
 3. Obtener las direcciones de las oficinas.
+              
+0. Regresar al menu principal.
 """)
     
         opcion = int(input(f"""

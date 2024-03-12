@@ -87,7 +87,9 @@ def ReportesDePedidos():
 2. Lista de pedidos atrasados de tiempo. 
 3. Lista de pedidos entregados con anterioridad de 2 o mas dias.
 4. Lista de pedidos Rechazados en el año 2009.
-5. Lista de pedidos Entregados en el mes de enero de cualquier año. 
+5. Lista de pedidos Entregados en el mes de enero de cualquier año.
+              
+0. Regresar al menu principal.
 """)
     
         opcion = int(input(f"""

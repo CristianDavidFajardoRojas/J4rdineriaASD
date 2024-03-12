@@ -44,7 +44,9 @@ def menu():
           
 1. Obtener lista de pagos realizados en 2008.
 2. Obtener lista de pagos realizados por medio de "Paypal".
-3. Obtener lista de formas de pago.          
+3. Obtener lista de formas de pago.  
+
+0. Regresar al menu principal.        
           """)
     
         opcion = int(input(f"""
