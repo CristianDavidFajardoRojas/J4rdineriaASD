@@ -1,11 +1,19 @@
-import storages.producto as pr
 from tabulate import tabulate
+import json
+import requests
+import modules.postProducto as psProducto
+import modules.getGamas as gG
 
+#json-server storage/producto.json -b 5501
+def getAllData():
+    peticion = requests.get("http://172.16.100.124:5001")
+    data = peticion.json()
+    return data
 
 #Ejercicio Teacher
 def getAllStocksPriceGama(gama, stock):
     condiciones = list()
-    for val in pr.producto:
+    for val in getAllData():
         if val.get("gama") == gama and val.get("cantidad_en_stock") >= stock:
             condiciones.append(val)
             
@@ -28,6 +36,7 @@ def menu():
           /_/                                                                                                  
           
 1. Obtener todos los productos por gama y cantidad minima en stock ordenado de mayor a menor.
+2. Guardar.
               
 0. Regresar al menu principal.
 """)
@@ -39,6 +48,20 @@ Seleccione una de las opciones: """))
             gamaa = input("Ingrese la gama del producto: ")
             stoock = int(input("Ingrese cantidad minima en stock a revisar: "))
             print(tabulate(getAllStocksPriceGama(gamaa, stoock), headers="keys", tablefmt="rounded_grid"))
-
-        elif opcion == 0:
+        if opcion ==2:
+            producto = {
+                "codigo_producto": input("Ingrese el codigo del prodcuto: "),
+                "nombre": input("Ingrese el nombre del prodcuto: "),
+                "gama": input("Ingrese la gama del producto: "),
+                "dimensiones": input("Ingrese las dimensiones del producto: "),
+                "proveedor": input("Ingrese el proveedor del producto: "),
+                "descripcion": input("Ingrese una descripción: "), 
+                "cantidad_en_stock": input("Ingrese la cantidad en stock: "),
+                "precio_venta": input("Ingrese el precio de venta: "),
+                "precio_proveedor": input("Ingrese el precio del proveedor: ")
+    }
+            psProducto.postProducto(producto)
+            print(producto)
+        
+        if opcion == 0:
             break
