@@ -1,10 +1,17 @@
-import storages.pedido as ped
+import json
+import requests
 from datetime import datetime
 from tabulate import tabulate
 
+#json-server storages/producto.json -b 5006
+def dataPedidos():
+    peticion = requests.get("http://172.16.100.124:5006")
+    data = peticion.json()
+    return data
+
 def getAllEstadosPedido():
     pedidoEstado = []
-    for val in ped.pedido:
+    for val in dataPedidos():
         pedidoEstado.append({
             "codigo_pedido": val.get('codigo_pedido'),
             "estado": val.get('estado')
@@ -13,7 +20,7 @@ def getAllEstadosPedido():
 
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     pedidosEntregado = list()
-    for val in ped.pedido:
+    for val in dataPedidos():
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") == None):
             val["fecha_entrega"] = val.get("fecha_esperada")
         if (val.get("estado") == "Entregado"):
@@ -34,7 +41,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
 #Filtro 10
 def getAllPedidosEntregadosAlmenos2DiasAntes():
     pedidosEntregado = list()
-    for val in ped.pedido:
+    for val in dataPedidos():
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") == None):
             val["fecha_entrega"] = val.get("fecha_esperada")
         if (val.get("estado") == "Entregado"):
@@ -55,7 +62,7 @@ def getAllPedidosEntregadosAlmenos2DiasAntes():
 #Filtro 11
 def getAllPedidosRechazados2009():
     rechazados2009 = list()
-    for val in ped.pedido:
+    for val in dataPedidos():
         FechaPedido = "/".join(val.get("fecha_pedido").split("-")[::-1])
         start = datetime.strptime(FechaPedido, "%d/%m/%Y")
         if val.get("estado") == "Rechazado" and start.year == 2009:
@@ -65,7 +72,7 @@ def getAllPedidosRechazados2009():
 #Filtro 12
 def getAllPedidosEntregadosEnero():
     EntregadosEnero = list()
-    for val in ped.pedido:
+    for val in dataPedidos():
         if (val.get("estado") == "Entregado" and val.get("fecha_entrega") != None):
             FechaEntregada = "/".join(val.get("fecha_entrega").split("-")[::-1])
             start = datetime.strptime(FechaEntregada, "%d/%m/%Y")

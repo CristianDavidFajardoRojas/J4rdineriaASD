@@ -1,13 +1,30 @@
-import storages.pago as pag
-import storages.cliente as cli
-import storages.empleados as em
+import json
+import requests
 from datetime import datetime
 from tabulate import tabulate
+
+#json-server storages/producto.json -b 5005
+def dataPagos():
+    peticion = requests.get("http://172.16.100.124:5005")
+    data = peticion.json()
+    return data
+
+#json-server storages/cliente.json -b 5002
+def dataClientes():
+    peticion = requests.get("http://172.16.100.124:5002")
+    data = peticion.json()
+    return data
+
+#json-server storages/empleados.json -b 5003
+def dataEmpleados():
+    peticion = requests.get("http://172.16.100.124:5003")
+    data = peticion.json()
+    return data
 
 def getAllPagos2008():
     Pagos2008SinRepetir = list()
     PagosRepetidos = set()
-    for val in pag.pago:
+    for val in dataPagos():
         FechaPago = "/".join(val.get("fecha_pago").split("-")[::-1])
         start = datetime.strptime(FechaPago, "%d/%m/%Y")
         if start.year == 2008:
@@ -18,7 +35,7 @@ def getAllPagos2008():
         
 def getAllPaypal2008():
     Paypal2008 = list()
-    for val in pag.pago:
+    for val in dataPagos():
         FechaPago = "/".join(val.get("fecha_pago").split("-")[::-1])
         start = datetime.strptime(FechaPago, "%d/%m/%Y")
         if start.year == 2008:
@@ -28,7 +45,7 @@ def getAllPaypal2008():
 def getAllFormasDePago():
     FormaPago = list()
     FormaPagoRepetida = set()
-    for val in pag.pago:
+    for val in dataPagos():
         if val.get("forma_pago") not in FormaPagoRepetida:
             FormaPago.append({"Formas De Pago:": val.get("forma_pago")})
             FormaPagoRepetida.add(val.get("forma_pago"))
@@ -37,9 +54,9 @@ def getAllFormasDePago():
 def getAllNombreClientesYSuRepresentanteConPago():
     ListoNose = list()
     Repetidos = set()
-    for val in cli.clientes:
-        for cris in em.empleados:
-            for juan in pag.pago:
+    for val in dataClientes():
+        for cris in dataEmpleados():
+            for juan in dataPagos():
                 if(juan.get("codigo_cliente") == val.get("codigo_cliente"))and(val.get("codigo_empleado_rep_ventas") == cris.get("codigo_empleado")):
                     if val.get("nombre_cliente") not in ListoNose:
                         ListoNose.append({
@@ -52,9 +69,9 @@ def getAllNombreClientesYSuRepresentanteConPago():
 def getAllNombreClientesYSuRepresentantesSINPago():
     ListoNose = list()
     Repetidos = set()
-    for val in cli.clientes:
-        for cris in em.empleados:
-            for juan in pag.pago:
+    for val in dataClientes():
+        for cris in dataEmpleados():
+            for juan in dataPagos():
                 if(juan.get("codigo_cliente") != val.get("codigo_cliente"))and(val.get("codigo_empleado_rep_ventas") == cris.get("codigo_empleado")):
                     ListoNose.append({
                         "Nombre Cliente": val.get("nombre_cliente"),
