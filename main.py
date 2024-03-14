@@ -41,7 +41,7 @@ Seleccione una de las opciones: """))
             elif (opcion == 5):
                   Pag.menu()
             elif (opcion == 6):
-                  Produc.menu()
+                  Produc.menuProductos()
             elif (opcion == 0):
                   print(f"""
                         
