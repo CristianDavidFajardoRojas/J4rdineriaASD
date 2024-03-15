@@ -5,9 +5,11 @@ import modules.getPedidos as Pedidos
 import modules.getOficina as Oficina
 import modules.getPagos as Pag
 import modules.getProducto as Produc
+import os
 
 def menu():
       while True:
+            os.system("clear")
             print(f"""
             
   __  __                    _____      _            _             _ 
@@ -26,28 +28,32 @@ def menu():
 6. Productos 
 
 0. Salir""")
-            
-            opcion = int(input(f"""
+            try:
+                  opcion = int(input(f"""
                          
 Seleccione una de las opciones: """))
-            if (opcion == 1):
-                  cliente.menu()
-            elif (opcion == 2):
-                  Empleados.menu()
-            elif (opcion == 3):
-                  Pedidos.ReportesDePedidos()
-            elif (opcion == 4):
-                  Oficina.menu()
-            elif (opcion == 5):
-                  Pag.menu()
-            elif (opcion == 6):
-                  Produc.menuProductos()
-            elif (opcion == 0):
-                  print(f"""
+                  if (opcion == 1):
+                        cliente.menuClientes()
+                  elif (opcion == 2):
+                        Empleados.menu()
+                  elif (opcion == 3):
+                        Pedidos.ReportesDePedidos()
+                  elif (opcion == 4):
+                        Oficina.menu()
+                  elif (opcion == 5):
+                        Pag.menu()
+                  elif (opcion == 6):
+                        Produc.menuProductos()
+                  elif (opcion == 0):
+                        print(f"""
                         
 Gracias por usar el servicio, vuelva pronto!""")
-                  break
+                        break
             
+            except ValueError as error:
+                  print(f"""
+Usuario, error en la selección de opciones: {error} """)
+                  input(f"Escriba una letra para regresar: ")
       
 menu()
             

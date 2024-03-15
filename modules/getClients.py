@@ -1,6 +1,9 @@
 import json
 import requests
-from tabulate import tabulate 
+from tabulate import tabulate
+import os 
+import modules.postClients as PsClients
+
 
 #json-server storages/cliente.json -b 5002
 def dataClientes():
@@ -174,12 +177,38 @@ def getAllClientsYRepresentantes():
                 })
     return ClientesYSuRepresentante
 
+def menuClientes():
+    while True:
+        os.system("clear")
+        print(f"""
+    __  ___                    _________            __           
+   /  |/  /__  ____  __  __   / ____/ (_)__  ____  / /____  _____
+  / /|_/ / _ \/ __ \/ / / /  / /   / / / _ \/ __ \/ __/ _ \/ ___/
+ / /  / /  __/ / / / /_/ /  / /___/ / /  __/ / / / /_/  __(__  ) 
+/_/  /_/\___/_/ /_/\__,_/   \____/_/_/\___/_/ /_/\__/\___/____/  
+                                                                 
+1. Mostrar información de los clientes.
+2. Administrar Clientes.
 
+0. Regresar.
+""")
+        opcion = int(input(f"""
+                
+Seleccione una de las opciones: """))
+        if opcion == 1:
+            menu()
+        elif opcion == 2:
+            PsClients.menu()
+            
+        if opcion == 0:
+            break
+            
 
 
 
 def menu():
     while True:
+        os.system("clear")
         print(f"""
  _____                       _                  _             _ _            _            
 |  __ \                     | |                | |           | (_)          | |           
@@ -210,11 +239,13 @@ def menu():
     Seleccione una de las opciones: """))
         if opcion == 1:
             print(tabulate(search(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
         elif opcion == 2:
             codigocliente = int(input(f"""
     Ingrese el codigo del cliente: """))
             print(tabulate(getOneClienteCodigo(codigocliente), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
         elif opcion == 3:
             limiteCredito = float(input(f"""
@@ -223,42 +254,51 @@ def menu():
             ciudaad = input(f"""
     Ingrese la ciudad: """)
             print(tabulate(getAllClientsCreditCiudad(limiteCredito, ciudaad), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
 
         elif opcion == 4:
             faxx = (input(f"""
     Ingrese el fax del cliente: """))
             print(tabulate(getAllClientsMismoFax(faxx),headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
 
         elif opcion == 5:
             codigoEmpleadoRepVentas = int(input(f"""
     Ingrese el codigo del empleado en el reporte de ventas: """))
             print(tabulate(getAllClientsMismoCodigo_empleado_rep_ventas(codigoEmpleadoRepVentas),headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
 
         elif opcion == 6:
             print(tabulate(getAllClientsNombrePostal(),headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
 
         elif opcion == 7:
             print(tabulate(getAllClientsLineaDirecciones(),headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
 
         elif opcion ==8:
             apellidoo = input(f"""
     Escriba el apellido del cliente: """)
             print(tabulate(getAllclientsApellidoContacto(apellidoo),headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
 
         elif opcion == 9:
             print(tabulate(getAllNombresSpain(),headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         elif opcion == 10:
             print(tabulate(getAllClientsMadridYRepVentas11o30(),headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         elif opcion == 11:
             print(tabulate(getAllClientsYRepresentantes(),headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
 
             
