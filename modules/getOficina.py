@@ -2,10 +2,12 @@ import json
 import requests
 from tabulate import tabulate
 import keyboard
+import modules.postOficina as PsOficina
+import os
 
-#json-server storages/producto.json -b 5004
+#json-server storages/oficina.json -b 5004
 def dataOficinas():
-    peticion = requests.get("http://172.16.100.124:5004")
+    peticion = requests.get("http://172.16.104.22:5004")
     data = peticion.json()
     return data
 
@@ -41,8 +43,38 @@ def getAllDirecciones():
         })
     return Direcciones
 
+def menuOficinas():
+    while True:
+        os.system("clear")
+        print(f"""
+    __  ___                        __        ____  _____      _                 
+   /  |/  /__  ____  __  __   ____/ /__     / __ \/ __(_)____(_)___  ____ ______
+  / /|_/ / _ \/ __ \/ / / /  / __  / _ \   / / / / /_/ / ___/ / __ \/ __ `/ ___/
+ / /  / /  __/ / / / /_/ /  / /_/ /  __/  / /_/ / __/ / /__/ / / / / /_/ (__  ) 
+/_/  /_/\___/_/ /_/\__,_/   \__,_/\___/   \____/_/ /_/\___/_/_/ /_/\__,_/____/  
+                                                                                
+
+1. Información de oficinas.
+2. Administrar oficinas.
+              
+0. Regresar.
+""")
+        opcion = int(input((f"""
+
+Seleccione una opción: """)))
+        
+        if opcion == 1:
+            menu()
+
+        if opcion == 2:
+            PsOficina.menu()
+
+        if opcion == 0:
+            break
+
 def menu():
     while True:
+        os.system("clear")
         print(f"""
     ____                        __                   __        ____  _____      _                 
    / __ \___  ____  ____  _____/ /____  _____   ____/ /__     / __ \/ __(_)____(_)___  ____ ______
@@ -65,6 +97,7 @@ def menu():
         
         if opcion == 1:
             print(tabulate(getAllCodigoCiudad(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         if opcion == 2:
             paais = input(f"""
@@ -73,9 +106,11 @@ def menu():
                 print("Se presionó Ctrl + C. Saliendo del bucle.")
                 break
             print(tabulate(getAllCiudadTelefono(paais), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         if opcion == 3:
             print(tabulate(getAllDirecciones(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
         if opcion == 0:
             break

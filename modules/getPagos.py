@@ -2,22 +2,24 @@ import json
 import requests
 from datetime import datetime
 from tabulate import tabulate
+import os
+import modules.postPagos as PsPagos
 
-#json-server storages/producto.json -b 5005
+#json-server storages/pago.json -b 5005
 def dataPagos():
-    peticion = requests.get("http://172.16.100.124:5005")
+    peticion = requests.get("http://172.16.104.22:5005")
     data = peticion.json()
     return data
 
 #json-server storages/cliente.json -b 5002
 def dataClientes():
-    peticion = requests.get("http://172.16.100.124:5002")
+    peticion = requests.get("http://172.16.104.22:5002")
     data = peticion.json()
     return data
 
 #json-server storages/empleados.json -b 5003
 def dataEmpleados():
-    peticion = requests.get("http://172.16.100.124:5003")
+    peticion = requests.get("http://172.16.104.22:5003")
     data = peticion.json()
     return data
 
@@ -79,8 +81,39 @@ def getAllNombreClientesYSuRepresentantesSINPago():
                     })
     return ListoNose
 
+def menuPagos():
+    while True:
+        os.system("clear")
+        print(f"""
+    __  ___                        __        ____                        
+   /  |/  /__  ____  __  __   ____/ /__     / __ \____ _____ _____  _____
+  / /|_/ / _ \/ __ \/ / / /  / __  / _ \   / /_/ / __ `/ __ `/ __ \/ ___/
+ / /  / /  __/ / / / /_/ /  / /_/ /  __/  / ____/ /_/ / /_/ / /_/ (__  ) 
+/_/  /_/\___/_/ /_/\__,_/   \__,_/\___/  /_/    \__,_/\__, /\____/____/  
+                                                     /____/              
+
+
+1. Información de Pagos.
+2. Administrar Pagos.
+              
+0. Regresar.
+""")
+        opcion = int(input((f"""
+
+Seleccione una opción: """)))
+        
+        if opcion == 1:
+            menu()
+
+        if opcion == 2:
+            PsPagos.menu()
+
+        if opcion == 0:
+            break
+
 def menu():
     while True:
+        os.system("clear")
         print(f"""
     ____                        __                   __        ____                        
    / __ \___  ____  ____  _____/ /____  _____   ____/ /__     / __ \____ _____ _____  _____
@@ -104,18 +137,23 @@ def menu():
         
         if opcion == 1:
             print(tabulate(getAllPagos2008(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         if opcion == 2:
             print(tabulate(getAllPaypal2008(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         if opcion == 3:
             print(tabulate(getAllFormasDePago(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         if opcion == 4:
             print(tabulate(getAllNombreClientesYSuRepresentanteConPago(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         if opcion == 5:
             print(tabulate(getAllNombreClientesYSuRepresentantesSINPago(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
             
         if opcion == 0:
             break

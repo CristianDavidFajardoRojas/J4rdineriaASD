@@ -2,11 +2,12 @@ from tabulate import tabulate
 import json
 import requests
 import modules.postProducto as psProducto
+import os
 
 
-#json-server storage/producto.json -b 5501
+#json-server storages/producto.json -b 5501
 def getAllData():
-    peticion = requests.get("http://172.16.100.124:5501")
+    peticion = requests.get("http://172.16.104.22:5501")
     data = peticion.json()
     return data
 
@@ -55,12 +56,14 @@ Seleccione una de las opciones: """))
             gamaa = input("Ingrese la gama del producto: ")
             stoock = int(input("Ingrese cantidad minima en stock a revisar: "))
             print(tabulate(getAllStocksPriceGama(gamaa, stoock), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
         
         if opcion == 0:
             break
 
 def menuProductos():
     while True:
+        os.system("clear")
         print(f"""
     __  ___                        __                             __           __            
    /  |/  /__  ____  __  __   ____/ /__     ____  _________  ____/ /_  _______/ /_____  _____

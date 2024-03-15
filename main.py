@@ -35,13 +35,13 @@ Seleccione una de las opciones: """))
                   if (opcion == 1):
                         cliente.menuClientes()
                   elif (opcion == 2):
-                        Empleados.menu()
+                        Empleados.menuEmpleados()
                   elif (opcion == 3):
-                        Pedidos.ReportesDePedidos()
+                        Pedidos.menuPedidos()
                   elif (opcion == 4):
-                        Oficina.menu()
+                        Oficina.menuOficinas()
                   elif (opcion == 5):
-                        Pag.menu()
+                        Pag.menuPagos()
                   elif (opcion == 6):
                         Produc.menuProductos()
                   elif (opcion == 0):

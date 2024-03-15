@@ -2,10 +2,12 @@ import json
 import requests
 from datetime import datetime
 from tabulate import tabulate
+import modules.postPedidos as PsPedidos
+import os
 
-#json-server storages/producto.json -b 5006
+#json-server storages/pedido.json -b 5006
 def dataPedidos():
-    peticion = requests.get("http://172.16.100.124:5006")
+    peticion = requests.get("http://172.16.104.22:5006")
     data = peticion.json()
     return data
 
@@ -80,8 +82,38 @@ def getAllPedidosEntregadosEnero():
                 EntregadosEnero.append(val)
     return EntregadosEnero
 
-def ReportesDePedidos():
+def menuPedidos():
     while True:
+        os.system("clear")
+        print(f"""
+    __  ___                        __        ____           ___     __          
+   /  |/  /__  ____  __  __   ____/ /__     / __ \___  ____/ (_)___/ /___  _____
+  / /|_/ / _ \/ __ \/ / / /  / __  / _ \   / /_/ / _ \/ __  / / __  / __ \/ ___/
+ / /  / /  __/ / / / /_/ /  / /_/ /  __/  / ____/  __/ /_/ / / /_/ / /_/ (__  ) 
+/_/  /_/\___/_/ /_/\__,_/   \__,_/\___/  /_/    \___/\__,_/_/\__,_/\____/____/  
+                                                                                
+
+1. Información de Pedidos.
+2. Administrar Pedidos
+              
+0. Regresar.
+""")
+        opcion = int(input((f"""
+
+Seleccione una opción: """)))
+        
+        if opcion == 1:
+            menu()
+
+        if opcion == 2:
+            PsPedidos.menu()
+
+        if opcion == 0:
+            break
+
+def menu():
+    while True:
+        os.system("clear")
         print(f"""
     ____                        __                   __        ____           ___     __          
    / __ \___  ____  ____  _____/ /____  _____   ____/ /__     / __ \___  ____/ (_)___/ /___  _____
@@ -96,7 +128,7 @@ def ReportesDePedidos():
 4. Lista de pedidos Rechazados en el año 2009.
 5. Lista de pedidos Entregados en el mes de enero de cualquier año.
               
-0. Regresar al menu principal.
+0. Regresar.
 """)
     
         opcion = int(input(f"""
@@ -104,18 +136,23 @@ Seleccione una de las opciones: """))
     
         if opcion == 1:
             print(tabulate(getAllEstadosPedido(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         elif opcion == 2:
             print(tabulate(getAllPedidosEntregadosAtrasadosDeTiempo(), headers="keys", tablefmt="rounded_grid")) 
+            input(f"Escriba una tecla para continuar: ")
 
         elif opcion == 3:
             print(tabulate(getAllPedidosEntregadosAlmenos2DiasAntes(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         elif opcion == 4:
             print(tabulate(getAllPedidosRechazados2009(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
 
         elif opcion == 5:
             print(tabulate(getAllPedidosEntregadosEnero(), headers="keys", tablefmt="rounded_grid"))
+            input(f"Escriba una tecla para continuar: ")
         
         elif opcion == 0:
             break 

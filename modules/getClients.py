@@ -7,13 +7,13 @@ import modules.postClients as PsClients
 
 #json-server storages/cliente.json -b 5002
 def dataClientes():
-    peticion = requests.get("http://172.16.100.124:5002")
+    peticion = requests.get("http://172.16.104.22:5002")
     data = peticion.json()
     return data
 
 #json-server storages/empleados.json -b 5003
 def dataEmpleados():
-    peticion = requests.get("http://172.16.100.124:5003")
+    peticion = requests.get("http://172.16.104.22:5003")
     data = peticion.json()
     return data
 
