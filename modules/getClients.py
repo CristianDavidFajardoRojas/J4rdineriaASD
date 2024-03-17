@@ -7,7 +7,7 @@ import modules.postClients as PsClients
 
 #json-server storages/cliente.json -b 5002
 def dataClientes():
-    peticion = requests.get("http://172.16.104.22:5002")
+    peticion = requests.get("http://192.168.1.6:5502")
     data = peticion.json()
     return data
 
@@ -17,6 +17,10 @@ def dataEmpleados():
     data = peticion.json()
     return data
 
+def getAllTelefono(telefono):
+    for val in dataClientes():
+        if val.get("telefono") == telefono:
+            return [val]
 
 def search():
     ClienteName = list()
@@ -150,7 +154,7 @@ def getAllNombresSpain():
 def getAllClientsMadridYRepVentas11o30():
     MadridYCodigoRepresentante = list()
     for val in dataClientes():
-        if val.get("ciudad") == "Madrid" and (val.get("codigo_empleado_rep_ventas") == 11 or 30):
+        if val.get("ciudad") == "Madrid" and ((val.get("codigo_empleado_rep_ventas") == 11 or val.get("codigo_empleado_rep_ventas") == 30)):
                 MadridYCodigoRepresentante.append({
                 "Codigo":val.get("codigo_cliente"),
                 "Nombre":val.get("nombre_cliente"),
@@ -231,7 +235,7 @@ def menu():
 10. Obtener informaciòn de los clientes de madrid con representante de ventas codigo 11 o 30.
 11. Obtener nombre de los clientes con el nombre de su representante de ventas.
 
-0. Regresar al menu principal.
+0. Regresar.
         """)
 
         opcion = int(input(f"""

@@ -7,9 +7,14 @@ import os
 
 #json-server storages/producto.json -b 5501
 def getAllData():
-    peticion = requests.get("http://172.16.104.22:5501")
+    peticion = requests.get("http://192.168.1.6:5501")
     data = peticion.json()
     return data
+
+def getProductoCodigo(codigo):
+    for val in getAllData():
+        if val.get("codigo_producto")  == codigo:
+            return [val] 
 
 #Ejercicio Teacher
 def getAllStocksPriceGama(gama, stock):

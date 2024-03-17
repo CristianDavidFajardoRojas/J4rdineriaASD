@@ -6,9 +6,19 @@ import modules.postEmpleados as PsEmpleados
 
 #json-server storages/empleados.json -b 5003
 def dataEmpleados():
-    peticion = requests.get("http://172.16.104.22:5003")
+    peticion = requests.get("http://192.168.1.6:5003")
     data = peticion.json()
     return data
+
+def getPuestoAsd(puesto):
+    for val in dataEmpleados():
+        if val.get("puesto") == puesto:
+            return [val]
+
+def getEmpleadoCodigo(codigo):
+    for val in dataEmpleados():
+        if val.get("codigo_empleado") == codigo:
+            return [val]
 
 def getAllNombreApellidoEmailJefe(codigo):
     NombreApellidoEmail = []

@@ -1,16 +1,15 @@
 import json
 import requests
 
-#json-server storage/producto.json -b 5501
+#json-server storages/gama_producto.json -b 5509
 def getAllGama():
-    peticion = requests.get("http://172.16.100.124:5502")
+    peticion = requests.get("http://192.168.1.6:5509")
     data = peticion.json()
     return data
 
-def getAllNombre():
-    gamanombre = []
+def getAllNombre(gama):
     for val in getAllGama():
-        gamanombre.append(val.get("gama"))
-        return gamanombre
+        if val.get("gama") == gama:
+            return [val]
     
     
