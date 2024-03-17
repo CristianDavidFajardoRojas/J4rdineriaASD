@@ -2,19 +2,72 @@ import json
 import requests
 from tabulate import tabulate
 import os
+import re
+import modules.getOficina as GO
 
 def GuardarOficina():
-    oficina = {
-                "codigo_oficina": input("Ingrese el codigo de oficina: "),
-                "ciudad": input("Ingrese la ciudad: "),
-                "pais": input("Ingrese el pais: "),
-                "region": input("Ingrese la region: "),
-                "codigo_postal": input("Ingrese el codigo postal: "),
-                "telefono": input("Ingrese el telefono: "),
-                "linea_direccion1": input("Ingrese la direccion 1: "),
-                "linea_direccion2": input("Ingrese la direccion 2: ")
-                }
-    peticion = requests.get("http://172.16.100.124:5004", data=json.dumps(oficina, indent=4).encode("UTF-8"))
+    oficina = dict()
+    while True:
+        try:
+            if not oficina.get("codigo_oficina"):
+                codigo_oficina = input(f"Ingrese codigo de la oficina: ")
+                if re.match(r'^[A-Z]{3}-[A-Z]{2,3}$', codigo_oficina) is not None:
+                    perla = GO.getCodigoOficina(codigo_oficina)
+                    if perla:
+                        raise Exception("Codigo de oficina ya existente.")
+                    else:
+                        oficina["codigo_oficina"] = codigo_oficina
+                else:
+                    raise Exception("Codigo no valido, use el formato (XXX-XX) o (XXX-XXX).")
+            
+            if not oficina.get("ciudad"):
+                ciudad = input(f"Ingrese la ciudad: ")
+                if re.match(r'^[A-Z][a-zA-Z0-9\s]*$', ciudad) is not None:
+                    oficina["ciudad"] = ciudad
+                else:
+                    raise Exception("Ciudad no valida, recuerde que todas las palabras deben iniciar con mayúsculas.")
+                
+            if not oficina.get("pais"):
+                pais = input(f"Ingrese el pais: ")
+                if re.match(r'^[A-Z][a-zA-Z0-9\s]*$', pais) is not None:
+                    oficina["pais"] = pais
+                else:
+                    raise Exception("Pais no valida, recuerde que todas las palabras deben iniciar con mayúsculas.")
+
+            if not oficina.get("region"):
+                region = input(f"Ingrese la Region: ")
+                if re.match(r'^[A-Z][a-zA-Z0-9-\s]*$', region) is not None:
+                    oficina["region"] = region
+                else:
+                    raise Exception("Region no valida, recuerde que todas las palabras deben iniciar con mayúsculas.")
+            
+            if not oficina.get("codigo_postal"):
+                codigo_postal = input("Ingrese el codigo postal: ")
+                if re.match(r'^[A-Z0-9\s-]+$', codigo_postal)is not None:
+                    oficina["codigo_postal"] = codigo_postal
+                else:
+                    raise Exception("Codigo postal no valido.")
+                
+            if not oficina.get("telefono"):
+                telefono = input("Ingrese el telefono: ")
+                if re.match(r'^\+\d{1,3}\s\d{1,3}\s\d{4,10}$', telefono)is not None:
+                    oficina["telefono"] = telefono
+                else:
+                    raise Exception("Telefono no valido, formato: +pais(1-3 digitos) codigo_area(1-3 digitos) telefono(4-10 digitos).")
+
+            if not oficina.get("linea_direccion1"):
+                linea_direccion1 = input(f"Ingrese la linea de direccion 1: ")
+                oficina["linea_direccion1"] = linea_direccion1
+
+            if not oficina.get("linea_direccion2"):
+                linea_direccion2 = input(f"Ingrese la linea de direccion 2: ")
+                oficina["linea_direccion2"] = linea_direccion2
+                break              
+                
+        except Exception as error:
+            print (error)
+                             
+    peticion = requests.post("http://192.168.1.6:5004", data=json.dumps(oficina, indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Oficina Guardado"
     return [res]

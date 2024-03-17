@@ -7,7 +7,7 @@ import modules.postPagos as PsPagos
 
 #json-server storages/pago.json -b 5005
 def dataPagos():
-    peticion = requests.get("http://172.16.104.22:5005")
+    peticion = requests.get("http://192.168.1.6:5005")
     data = peticion.json()
     return data
 
@@ -22,6 +22,16 @@ def dataEmpleados():
     peticion = requests.get("http://172.16.104.22:5003")
     data = peticion.json()
     return data
+
+def getIDTransac(id):
+    for val in dataPagos():
+        if val.get("id_transaccion") == id:
+            return [val]
+
+def getFormasPagoXd(Pago):
+    for val in dataPagos():
+        if val.get("forma_pago") == Pago:
+            return [val]
 
 def getAllPagos2008():
     Pagos2008SinRepetir = list()

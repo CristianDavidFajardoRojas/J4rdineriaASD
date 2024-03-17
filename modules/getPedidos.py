@@ -7,9 +7,24 @@ import os
 
 #json-server storages/pedido.json -b 5006
 def dataPedidos():
-    peticion = requests.get("http://172.16.104.22:5006")
+    peticion = requests.get("http://192.168.1.6:5006")
     data = peticion.json()
     return data
+
+def getAllCodigoooHaha(codigo):
+    for val in dataPedidos():
+        if val.get("codigo_cliente") == codigo:
+            return [val]
+
+def getAllCodigoPedidos(codigo):
+    for val in dataPedidos():
+        if val.get("codigo_pedido") == codigo:
+            return [val]
+        
+def getAllEstadooo(estado):
+    for val in dataPedidos():
+        if val.get("estado") == estado:
+            return [val]
 
 def getAllEstadosPedido():
     pedidoEstado = []

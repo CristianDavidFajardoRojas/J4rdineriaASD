@@ -7,9 +7,14 @@ import os
 
 #json-server storages/oficina.json -b 5004
 def dataOficinas():
-    peticion = requests.get("http://172.16.104.22:5004")
+    peticion = requests.get("http://192.168.1.6:5004")
     data = peticion.json()
     return data
+
+def getCodigoOficina(codigo):
+    for val in dataOficinas():
+        if val.get("codigo_oficina") == codigo:
+            return [val]
 
 def getAllCodigoCiudad():
     codigoCiudad = []
