@@ -89,6 +89,25 @@ def GuardarProducto():
     res["Mensaje"] = "Producto Guardado"
     return [res]
 
+def DeleteProducto(id):
+    data = GP.getgetProductoooCodigoasd(id)
+    if len(data):
+        peticion = requests.delete(f"http://192.168.1.6:5501/productos/{id}")
+        if peticion.status_code == 204:
+            data.append({"message":  "Producto eliminado correctamente"})
+            return {
+                "body": data,
+                "status": peticion.status_code,
+            }     
+    else:
+        return {
+                "body":[{
+                    "Mensaje": "Producto no encontrado.",
+                    "id": id,
+            }],
+            "status": 400,
+            }
+    
 def menu():
     while True:
         os.system("clear")
@@ -101,6 +120,7 @@ def menu():
 
 
 1. Guardar un producto nuevo.
+2. Eliminar un producto.
 
 0. Regresar                                                                                                    
  """)
@@ -109,10 +129,22 @@ def menu():
 
 Seleccione una opción: """)))
         if opcion == 1:
-            print(tabulate(GuardarProducto(), headers="keys", tablefmt="github"))
-            input(f"""
+                print(tabulate(GuardarProducto(), headers="keys", tablefmt="github"))
+                input(f"""
 Escriba una tecla para continuar: """)
             
-        if opcion == 0:
-            break
-
+        elif opcion == 2:
+                idProducto = int(input("Ingrese el id del producto: "))
+                print(tabulate(DeleteProducto(idProducto), headers="keys", tablefmt="github"))
+                input(f"""
+Escriba una tecla para continuar: """)
+            
+        
+        elif opcion == 0:
+                break
+            
+        else:
+                print(f"Error: Seleccion no valida. ")
+                input(f"Escriba una letra para regresar: ")
+                
+        

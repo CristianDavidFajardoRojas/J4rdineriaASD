@@ -7,9 +7,13 @@ import os
 
 #json-server storages/producto.json -b 5501
 def getAllData():
-    peticion = requests.get("http://192.168.1.6:5501")
+    peticion = requests.get("http://172.16.100.124:5501/productos")
     data = peticion.json()
     return data
+
+def getgetProductoooCodigoasd(codigo):
+    peticion = requests.get(f"http://192.168.1.6:5501/productos/{codigo}")
+    return [peticion.json()] if peticion.ok else []
 
 def getProductoCodigo(codigo):
     for val in getAllData():
@@ -42,6 +46,7 @@ def getAllStocksPriceGama(gama, stock):
     
 def menu():
     while True:
+        os.system("clear")  
         print(f"""
     ____                 __           __            
    / __ \_________  ____/ /_  _______/ /_____  _____
