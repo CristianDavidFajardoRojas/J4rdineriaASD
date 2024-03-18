@@ -11,6 +11,10 @@ def dataOficinas():
     data = peticion.json()
     return data
 
+def getOficinaCodigoasd(codigo):
+    peticion = requests.get(f"http://192.168.1.6:5504/oficinas/{codigo}")
+    return [peticion.json()] if peticion.ok else []
+
 def getCodigoOficina(codigo):
     for val in dataOficinas():
         if val.get("codigo_oficina") == codigo:

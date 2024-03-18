@@ -91,6 +91,25 @@ def GuardarEmpleado():
     res["Mensaje"] = "Empleado Guardado"
     return [res]
 
+def DeleteEmpleado(id):
+    data = GE.getEmpleadoCodigoasd(id)
+    if len(data):
+        peticion = requests.delete(f"http://192.168.1.6:5503/empleados/{id}")
+        if peticion.status_code == 204:
+            data.append({"message":  "Empleado eliminado correctamente"})
+            return {
+                "body": data,
+                "status": peticion.status_code,
+            }     
+    else:
+        return {
+                "body":[{
+                    "Mensaje": "Empleado no encontrado.",
+                    "id": id,
+            }],
+            "status": 400,
+            }
+
 def menu():
     while True:
         os.system("clear")
@@ -103,6 +122,7 @@ def menu():
                                                                            /_/                                     
           
 1. Guardar un nuevo empleado.
+2. Eliminar un empleado.
           
 0. Regresar.
           """)
@@ -113,6 +133,12 @@ Seleccione una opciòn: """))
         if opcion==1:
             print(tabulate(GuardarEmpleado(), headers="keys", tablefmt="github"))
             input(f"""
+Escriba una tecla para continuar: """)
+            
+        elif opcion == 2:
+                idEmpleado = int(input("Ingrese el id del Empleado: "))
+                print(tabulate(DeleteEmpleado(idEmpleado), headers="keys", tablefmt="github"))
+                input(f"""
 Escriba una tecla para continuar: """)
 
         elif opcion ==0:

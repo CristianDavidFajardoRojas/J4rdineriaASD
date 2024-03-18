@@ -11,6 +11,10 @@ def dataPedidos():
     data = peticion.json()
     return data
 
+def getPedidoCodigoasd(codigo):
+    peticion = requests.get(f"http://192.168.1.6:5506/pedidos/{codigo}")
+    return [peticion.json()] if peticion.ok else []
+
 def getAllCodigoooHaha(codigo):
     for val in dataPedidos():
         if val.get("codigo_cliente") == codigo:

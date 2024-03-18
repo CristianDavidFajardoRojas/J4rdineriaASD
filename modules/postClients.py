@@ -119,6 +119,25 @@ def GuardarClientes():
     res["Mensaje"] = "Cliente Guardado"
     return [res]
 
+def DeleteClientes(id):
+    data = GC.getClienteCodigoasd(id)
+    if len(data):
+        peticion = requests.delete(f"http://192.168.1.6:5502/clientes/{id}")
+        if peticion.status_code == 204:
+            data.append({"message":  "Cliente eliminado correctamente"})
+            return {
+                "body": data,
+                "status": peticion.status_code,
+            }     
+    else:
+        return {
+                "body":[{
+                    "Mensaje": "Cliente no encontrado.",
+                    "id": id,
+            }],
+            "status": 400,
+            }
+
 def menu():
     while True:
         os.system("clear")
@@ -130,7 +149,8 @@ def menu():
 /_/  |_\__,_/_/ /_/ /_/_/_/ /_/_/____/\__/\__,_/_/      \____/_/_/\___/_/ /_/\__/\___/____/  
 
 1. Guardar un cliente nuevo.
-
+2. Eliminar un cliente.
+              
 0. Regresar
 """)
         opcion = int(input(f"""
@@ -141,5 +161,12 @@ Seleccione una opción: """))
             print(tabulate(GuardarClientes(), headers="keys", tablefmt="github"))
             input(f"""
 Escriba una tecla para continuar: """)
+            
+        elif opcion == 2:
+                idCliente = int(input("Ingrese el id del cliente: "))
+                print(tabulate(DeleteClientes(idCliente), headers="keys", tablefmt="github"))
+                input(f"""
+Escriba una tecla para continuar: """)
+
         if opcion == 0:
             break

@@ -17,6 +17,11 @@ def dataEmpleados():
     data = peticion.json()
     return data
 
+def getClienteCodigoasd(codigo):
+    peticion = requests.get(f"http://192.168.1.6:5502/clientes/{codigo}")
+    return [peticion.json()] if peticion.ok else []
+
+
 def getAllTelefono(telefono):
     for val in dataClientes():
         if val.get("telefono") == telefono:

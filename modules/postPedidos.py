@@ -83,6 +83,25 @@ def GuardarPedido():
     res["Mensaje"] = "Pedido Guardado"
     return [res]
 
+def DeletePedido(id):
+    data = GP.getPedidoCodigoasd(id)
+    if len(data):
+        peticion = requests.delete(f"http://192.168.1.6:5506/pedidos/{id}")
+        if peticion.status_code == 204:
+            data.append({"message":  "Pedido eliminado correctamente"})
+            return {
+                "body": data,
+                "status": peticion.status_code,
+            }     
+    else:
+        return {
+                "body":[{
+                    "Mensaje": "Pedido no encontrado.",
+                    "id": id,
+            }],
+            "status": 400,
+            }
+
 def menu():
     while True:
         os.system("clear")
@@ -95,6 +114,7 @@ def menu():
                                                                                                    
 
 1. Guardar un producto nuevo.
+2. Eliminar un pedido.
 
 0. Regresar                                                                                                    
  """)
@@ -107,5 +127,11 @@ Seleccione una opción: """))
             input(f"""
 Escriba una tecla para continuar: """)
             
+        elif opcion == 2:
+                idPedido = int(input("Ingrese el id del Pedido: "))
+                print(tabulate(DeletePedido(idPedido), headers="keys", tablefmt="github"))
+                input(f"""
+Escriba una tecla para continuar: """)
+
         if opcion == 0:
             break

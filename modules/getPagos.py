@@ -23,6 +23,10 @@ def dataEmpleados():
     data = peticion.json()
     return data
 
+def getPagoCodigoasd(codigo):
+    peticion = requests.get(f"http://192.168.1.6:5505/pagos/{codigo}")
+    return [peticion.json()] if peticion.ok else []
+
 def getIDTransac(id):
     for val in dataPagos():
         if val.get("id_transaccion") == id:

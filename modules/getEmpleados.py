@@ -10,6 +10,10 @@ def dataEmpleados():
     data = peticion.json()
     return data
 
+def getEmpleadoCodigoasd(codigo):
+    peticion = requests.get(f"http://192.168.1.6:5503/empleados/{codigo}")
+    return [peticion.json()] if peticion.ok else []
+
 def getPuestoAsd(puesto):
     for val in dataEmpleados():
         if val.get("puesto") == puesto:
