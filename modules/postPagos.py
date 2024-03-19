@@ -69,7 +69,7 @@ def GuardarPago():
     return [res]
 
 def DeletePago(id):
-    data = GP.getPagoCodigoasd(id)
+    data = GP.DeleteOficinaAsdAsd(id)
     if len(data):
         peticion = requests.delete(f"http://154.38.171.54:5006/pagos/{id}")
         if peticion.status_code == 204:
@@ -85,7 +85,7 @@ def DeletePago(id):
                     "id": id,
             }],
             "status": 400,
-            }
+        }
 
 def menu():
     while True:
@@ -115,7 +115,7 @@ Seleccione una opción: """)))
 Escriba una tecla para continuar: """)
             
         elif opcion == 2:
-                idPago = int(input("Ingrese el id del pago: "))
+                idPago = input("Ingrese el id del pago: ")
                 print(tabulate(DeletePago(idPago), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)

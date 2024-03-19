@@ -120,7 +120,7 @@ def GuardarClientes():
     return [res]
 
 def DeleteClientes(id):
-    data = GC.getClienteCodigoasd(id)
+    data = GC.DeleteClienteCodigoasd(id)
     if len(data):
         peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
         if peticion.status_code == 204:
@@ -163,7 +163,7 @@ Seleccione una opción: """))
 Escriba una tecla para continuar: """)
             
         elif opcion == 2:
-                idCliente = int(input("Ingrese el id del cliente: "))
+                idCliente = input("Ingrese el id del cliente: ")
                 print(tabulate(DeleteClientes(idCliente), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)

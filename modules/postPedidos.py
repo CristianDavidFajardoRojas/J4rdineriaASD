@@ -4,6 +4,7 @@ from tabulate import tabulate
 import os
 import re
 import modules.getPedidos as GP
+import modules.getClients as GC
 
 def GuardarPedido():
     pedido = dict()
@@ -66,7 +67,7 @@ def GuardarPedido():
                 codigo = input("Ingrese el codigo del cliente: ")
                 if re.match(r'^[0-9]+$',codigo)is not None:
                     codigo = int(codigo)
-                    asd = GP.getAllCodigoooHaha(codigo)
+                    asd = GC.getOneClienteCodigo(codigo)
                     if asd:
                         pedido["codigo_cliente"] = codigo
                         break
@@ -84,7 +85,7 @@ def GuardarPedido():
     return [res]
 
 def DeletePedido(id):
-    data = GP.getPedidoCodigoasd(id)
+    data = GP.DeletePedidoasdasd(id)
     if len(data):
         peticion = requests.delete(f"http://154.38.171.54:5007/pedidos/{id}")
         if peticion.status_code == 204:
@@ -128,7 +129,7 @@ Seleccione una opción: """))
 Escriba una tecla para continuar: """)
             
         elif opcion == 2:
-                idPedido = int(input("Ingrese el id del Pedido: "))
+                idPedido = input("Ingrese el id del Pedido: ")
                 print(tabulate(DeletePedido(idPedido), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)

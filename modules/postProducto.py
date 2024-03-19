@@ -90,7 +90,7 @@ def GuardarProducto():
     return [res]
 
 def DeleteProducto(id):
-    data = GP.getgetProductoooCodigoasd(id)
+    data = GP.DeleteProductoooIDasd(id)
     if len(data):
         peticion = requests.delete(f"http://154.38.171.54:5008/productos/{id}")
         if peticion.status_code == 204:
@@ -134,7 +134,7 @@ Seleccione una opción: """)))
 Escriba una tecla para continuar: """)
             
         elif opcion == 2:
-                idProducto = int(input("Ingrese el id del producto: "))
+                idProducto = input("Ingrese el id del producto: ")
                 print(tabulate(DeleteProducto(idProducto), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)

@@ -10,6 +10,10 @@ def dataEmpleados():
     data = peticion.json()
     return data
 
+def DeleteAsdHaha(id):
+    peticion = requests.get(f"http://154.38.171.54:5003/empleados/{id}")
+    return [peticion.json()] if peticion.ok else []
+
 def getEmpleadoCodigoasd(codigo):
     peticion = requests.get(f"http://154.38.171.54:5003/empleados/{codigo}")
     return [peticion.json()] if peticion.ok else []

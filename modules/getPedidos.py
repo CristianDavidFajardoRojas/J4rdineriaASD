@@ -11,6 +11,10 @@ def dataPedidos():
     data = peticion.json()
     return data
 
+def DeletePedidoasdasd(id):
+    peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{id}")
+    return [peticion.json()] if peticion.ok else []
+
 def getPedidoCodigoasd(codigo):
     peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{codigo}")
     return [peticion.json()] if peticion.ok else []
@@ -42,10 +46,10 @@ def getAllEstadosPedido():
 def getAllPedidosEntregadosAtrasadosDeTiempo():
     pedidosEntregado = list()
     for val in dataPedidos():
-        if (val.get("estado") == "Entregado" and val.get("fecha_entrega") == None):
-            val["fecha_entrega"] = val.get("fecha_esperada")
+        if (val.get("estado") == "Entregado" and val.get("fechaEntrega") == None):
+            val["fechaEntrega"] = val.get("fecha_esperada")
         if (val.get("estado") == "Entregado"):
-            date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
+            date_1 = "/".join(val.get("fechaEntrega").split("-")[::-1])
             date_2 = "/".join(val.get("fecha_esperada").split("-")[::-1])
             start = datetime.strptime(date_1, "%d/%m/%Y")
             end = datetime.strptime(date_2, "%d/%m/%Y")
@@ -55,7 +59,7 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
                     "codigo_de_pedido": val.get("codigo_pedido"),
                     "codigo_de_cliente": val.get("codigo_cliente"),
                     "fecha_esperada": val.get("fecha_esperada"),
-                    "fecha_de_entrega": val.get("fecha_entrega")
+                    "fecha_de_entrega": val.get("fechaEntrega")
                 })
     return pedidosEntregado
 
@@ -63,10 +67,10 @@ def getAllPedidosEntregadosAtrasadosDeTiempo():
 def getAllPedidosEntregadosAlmenos2DiasAntes():
     pedidosEntregado = list()
     for val in dataPedidos():
-        if (val.get("estado") == "Entregado" and val.get("fecha_entrega") == None):
-            val["fecha_entrega"] = val.get("fecha_esperada")
+        if (val.get("estado") == "Entregado" and val.get("fechaEntrega") == None):
+            val["fechaEntrega"] = val.get("fecha_esperada")
         if (val.get("estado") == "Entregado"):
-            date_1 = "/".join(val.get("fecha_entrega").split("-")[::-1])
+            date_1 = "/".join(val.get("fechaEntrega").split("-")[::-1])
             date_2 = "/".join(val.get("fecha_esperada").split("-")[::-1])
             start = datetime.strptime(date_1, "%d/%m/%Y")
             end = datetime.strptime(date_2, "%d/%m/%Y")
@@ -76,7 +80,7 @@ def getAllPedidosEntregadosAlmenos2DiasAntes():
                     "codigo_de_pedido": val.get("codigo_pedido"),
                     "codigo_de_cliente": val.get("codigo_cliente"),
                     "fecha_esperada": val.get("fecha_esperada"),
-                    "fecha_de_entrega": val.get("fecha_entrega")
+                    "fecha_de_entrega": val.get("fechaEntrega")
                 })
     return pedidosEntregado
 
@@ -94,8 +98,8 @@ def getAllPedidosRechazados2009():
 def getAllPedidosEntregadosEnero():
     EntregadosEnero = list()
     for val in dataPedidos():
-        if (val.get("estado") == "Entregado" and val.get("fecha_entrega") != None):
-            FechaEntregada = "/".join(val.get("fecha_entrega").split("-")[::-1])
+        if (val.get("estado") == "Entregado" and val.get("fechaEntrega") != None):
+            FechaEntregada = "/".join(val.get("fechaEntrega").split("-")[::-1])
             start = datetime.strptime(FechaEntregada, "%d/%m/%Y")
             if val.get("estado") == "Entregado" and start.month == 1:
                 EntregadosEnero.append(val)

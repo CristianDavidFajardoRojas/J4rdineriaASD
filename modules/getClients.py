@@ -19,6 +19,10 @@ def getClienteCodigoasd(codigo):
     peticion = requests.get(f"http://154.38.171.54:5001/cliente/{codigo}")
     return [peticion.json()] if peticion.ok else []
 
+def DeleteClienteCodigoasd(id):
+    peticion = requests.get(f"http://154.38.171.54:5001/cliente/{id}")
+    return [peticion.json()] if peticion.ok else []
+
 
 def getAllTelefono(telefono):
     for val in dataClientes():

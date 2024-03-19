@@ -11,6 +11,10 @@ def getAllData():
     data = peticion.json()
     return data
 
+def DeleteProductoooIDasd(id):
+    peticion = requests.get(f"http://154.38.171.54:5008/productos/{id}")
+    return [peticion.json()] if peticion.ok else []
+
 def getgetProductoooCodigoasd(codigo):
     peticion = requests.get(f"http://154.38.171.54:5008/productos/{codigo}")
     return [peticion.json()] if peticion.ok else []
@@ -24,7 +28,7 @@ def getProductoCodigo(codigo):
 def getAllStocksPriceGama(gama, stock):
     condiciones = list()
     for val in getAllData():
-        if val.get("gama") == gama and val.get("cantidadEnStock") >= stock:
+        if((val.get("gama") == gama) and (val.get("cantidadEnStock") >= stock)):
             condiciones.append(val)
             
     def price(val):

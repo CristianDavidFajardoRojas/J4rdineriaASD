@@ -11,6 +11,10 @@ def dataOficinas():
     data = peticion.json()
     return data
 
+def DeleteOficinaHahaDoges(id):
+    peticion = requests.get(f"http://154.38.171.54:5005/oficinas/{id}")
+    return [peticion.json()] if peticion.ok else []
+
 def getOficinaCodigoasd(codigo):
     peticion = requests.get(f"http://154.38.171.54:5005/oficinas/{codigo}")
     return [peticion.json()] if peticion.ok else []
@@ -111,9 +115,6 @@ def menu():
         if opcion == 2:
             paais = input(f"""
     Ingrese el pais: """)
-            if keyboard.is_pressed('ctrl') and keyboard.is_pressed('c'):
-                print("Se presionó Ctrl + C. Saliendo del bucle.")
-                break
             print(tabulate(getAllCiudadTelefono(paais), headers="keys", tablefmt="rounded_grid"))
             input(f"Escriba una tecla para continuar: ")
 

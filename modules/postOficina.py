@@ -73,7 +73,7 @@ def GuardarOficina():
     return [res]
 
 def DeleteOficina(id):
-    data = GO.getOficinaCodigoasd(id)
+    data = GO.DeleteOficinaHahaDoges(id)
     if len(data):
         peticion = requests.delete(f"http://154.38.171.54:5005/oficinas/{id}")
         if peticion.status_code == 204:
@@ -118,7 +118,7 @@ Seleccione una opción: """)))
 Escriba una tecla para continuar: """)
             
         elif opcion == 2:
-                idOficina = int(input("Ingrese el id de la oficina: "))
+                idOficina = input("Ingrese el id de la oficina: ")
                 print(tabulate(DeleteOficina(idOficina), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)

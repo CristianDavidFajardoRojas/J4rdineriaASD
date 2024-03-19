@@ -92,7 +92,7 @@ def GuardarEmpleado():
     return [res]
 
 def DeleteEmpleado(id):
-    data = GE.getEmpleadoCodigoasd(id)
+    data = GE.DeleteAsdHaha(id)
     if len(data):
         peticion = requests.delete(f"http://154.38.171.54:5003/empleados/{id}")
         if peticion.status_code == 204:
@@ -136,7 +136,7 @@ Seleccione una opciòn: """))
 Escriba una tecla para continuar: """)
             
         elif opcion == 2:
-                idEmpleado = int(input("Ingrese el id del Empleado: "))
+                idEmpleado = input("Ingrese el id del Empleado: ")
                 print(tabulate(DeleteEmpleado(idEmpleado), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)
