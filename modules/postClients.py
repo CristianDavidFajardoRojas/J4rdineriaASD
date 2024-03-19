@@ -114,7 +114,7 @@ def GuardarClientes():
         except Exception as error:
             print(error)
 
-    peticion = requests.post("http://192.168.1.6:5502", data=json.dumps(cliente, indent=4).encode("UTF-8"))
+    peticion = requests.post("http://154.38.171.54:5001/cliente", data=json.dumps(cliente, indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Cliente Guardado"
     return [res]
@@ -122,7 +122,7 @@ def GuardarClientes():
 def DeleteClientes(id):
     data = GC.getClienteCodigoasd(id)
     if len(data):
-        peticion = requests.delete(f"http://192.168.1.6:5502/clientes/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5001/cliente/{id}")
         if peticion.status_code == 204:
             data.append({"message":  "Cliente eliminado correctamente"})
             return {

@@ -67,7 +67,7 @@ def GuardarOficina():
         except Exception as error:
             print (error)
                              
-    peticion = requests.post("http://192.168.1.6:5004", data=json.dumps(oficina, indent=4).encode("UTF-8"))
+    peticion = requests.post("http://154.38.171.54:5005/oficinas", data=json.dumps(oficina, indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Oficina Guardado"
     return [res]
@@ -75,7 +75,7 @@ def GuardarOficina():
 def DeleteOficina(id):
     data = GO.getOficinaCodigoasd(id)
     if len(data):
-        peticion = requests.delete(f"http://192.168.1.6:5504/oficinas/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5005/oficinas/{id}")
         if peticion.status_code == 204:
             data.append({"message":  "Oficina eliminada correctamente"})
             return {

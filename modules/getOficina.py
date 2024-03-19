@@ -7,12 +7,12 @@ import os
 
 #json-server storages/oficina.json -b 5004
 def dataOficinas():
-    peticion = requests.get("http://192.168.1.6:5004")
+    peticion = requests.get("http://154.38.171.54:5005/oficinas")
     data = peticion.json()
     return data
 
 def getOficinaCodigoasd(codigo):
-    peticion = requests.get(f"http://192.168.1.6:5504/oficinas/{codigo}")
+    peticion = requests.get(f"http://154.38.171.54:5005/oficinas/{codigo}")
     return [peticion.json()] if peticion.ok else []
 
 def getCodigoOficina(codigo):

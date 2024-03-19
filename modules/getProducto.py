@@ -7,12 +7,12 @@ import os
 
 #json-server storages/producto.json -b 5501
 def getAllData():
-    peticion = requests.get("http://172.16.100.124:5501/productos")
+    peticion = requests.get("http://154.38.171.54:5008/productos")
     data = peticion.json()
     return data
 
 def getgetProductoooCodigoasd(codigo):
-    peticion = requests.get(f"http://192.168.1.6:5501/productos/{codigo}")
+    peticion = requests.get(f"http://154.38.171.54:5008/productos/{codigo}")
     return [peticion.json()] if peticion.ok else []
 
 def getProductoCodigo(codigo):
@@ -24,7 +24,7 @@ def getProductoCodigo(codigo):
 def getAllStocksPriceGama(gama, stock):
     condiciones = list()
     for val in getAllData():
-        if val.get("gama") == gama and val.get("cantidad_en_stock") >= stock:
+        if val.get("gama") == gama and val.get("cantidadEnStock") >= stock:
             condiciones.append(val)
             
     def price(val):
@@ -39,7 +39,7 @@ def getAllStocksPriceGama(gama, stock):
                 "dimensiones": val.get("dimensiones"),
                 "proveedor": val.get("proveedor"),
                 "descripcion": f'{val.get("descripcion")[:5]}...' if condiciones[i].get("descripcion") else None,
-                "stock": val.get("cantidad_en_stock"),
+                "stock": val.get("cantidadEnStock"),
                 "base": val.get("precio_proveedor")
             }
     return condiciones  

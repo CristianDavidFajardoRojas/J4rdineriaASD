@@ -7,24 +7,24 @@ import modules.postPagos as PsPagos
 
 #json-server storages/pago.json -b 5005
 def dataPagos():
-    peticion = requests.get("http://192.168.1.6:5005")
+    peticion = requests.get("http://154.38.171.54:5006/pagos")
     data = peticion.json()
     return data
 
 #json-server storages/cliente.json -b 5002
 def dataClientes():
-    peticion = requests.get("http://172.16.104.22:5002")
+    peticion = requests.get("http://154.38.171.54:5001/cliente")
     data = peticion.json()
     return data
 
 #json-server storages/empleados.json -b 5003
 def dataEmpleados():
-    peticion = requests.get("http://172.16.104.22:5003")
+    peticion = requests.get("http://154.38.171.54:5003/empleados")
     data = peticion.json()
     return data
 
 def getPagoCodigoasd(codigo):
-    peticion = requests.get(f"http://192.168.1.6:5505/pagos/{codigo}")
+    peticion = requests.get(f"http://154.38.171.54:5006/pagos/{codigo}")
     return [peticion.json()] if peticion.ok else []
 
 def getIDTransac(id):

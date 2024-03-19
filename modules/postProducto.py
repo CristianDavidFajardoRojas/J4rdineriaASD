@@ -56,11 +56,11 @@ def GuardarProducto():
                 descripcion = input("Ingrese una descripción: ")
                 producto["descripcion"] = descripcion
             
-            if not producto.get("cantidad_en_stock"):
+            if not producto.get("cantidadEnStock"):
                 cantidad = input("Ingrese el precio de venta: ")
                 if re.match(r'^[0-9]+$', cantidad) is not None:
                     cantidad = int(cantidad)
-                    producto["cantidad_en_stock"] = cantidad
+                    producto["cantidadEnStock"] = cantidad
                 else:
                     raise Exception("Cantidad no valida, asegurese de ingresar solo dígitos numéricos.")
                 
@@ -68,7 +68,7 @@ def GuardarProducto():
                 PrecioVenta = input("Ingrese el precio de venta: ")
                 if re.match(r'^[0-9]+$', PrecioVenta) is not None:
                     PrecioVenta = int(PrecioVenta)
-                    producto["cantidad_en_stock"] = PrecioVenta
+                    producto["precio_venta"] = PrecioVenta
                 else:
                     raise Exception("Precio de venta no valido, asegurese de ingresar solo dígitos numéricos.")
                 
@@ -84,7 +84,7 @@ def GuardarProducto():
         except Exception as error:
             print(error)                     
     
-    peticion = requests.post("http://192.168.1.6:5501", data=json.dumps(producto, indent=4).encode("UTF-8"))
+    peticion = requests.post("http://154.38.171.54:5008/productos", data=json.dumps(producto, indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Producto Guardado"
     return [res]
@@ -92,7 +92,7 @@ def GuardarProducto():
 def DeleteProducto(id):
     data = GP.getgetProductoooCodigoasd(id)
     if len(data):
-        peticion = requests.delete(f"http://192.168.1.6:5501/productos/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5008/productos/{id}")
         if peticion.status_code == 204:
             data.append({"message":  "Producto eliminado correctamente"})
             return {

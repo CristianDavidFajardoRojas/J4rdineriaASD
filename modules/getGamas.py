@@ -3,7 +3,7 @@ import requests
 
 #json-server storages/gama_producto.json -b 5509
 def getAllGama():
-    peticion = requests.get("http://192.168.1.6:5509")
+    peticion = requests.get("http://154.38.171.54:5004/gama")
     data = peticion.json()
     return data
 

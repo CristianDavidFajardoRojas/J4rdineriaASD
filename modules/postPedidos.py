@@ -78,7 +78,7 @@ def GuardarPedido():
         except Exception as error:
             print(error)
                 
-    peticion = requests.post("http://192.168.1.6:5006", data=json.dumps(pedido, indent=4).encode("UTF-8"))
+    peticion = requests.post("http://154.38.171.54:5007/pedidos", data=json.dumps(pedido, indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Pedido Guardado"
     return [res]
@@ -86,7 +86,7 @@ def GuardarPedido():
 def DeletePedido(id):
     data = GP.getPedidoCodigoasd(id)
     if len(data):
-        peticion = requests.delete(f"http://192.168.1.6:5506/pedidos/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5007/pedidos/{id}")
         if peticion.status_code == 204:
             data.append({"message":  "Pedido eliminado correctamente"})
             return {

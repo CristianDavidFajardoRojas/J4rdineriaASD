@@ -86,7 +86,7 @@ def GuardarEmpleado():
         except Exception as error:
             print(error)
     
-    peticion = requests.post("http://192.168.1.6:5003", data=json.dumps(empleado, indent=4).encode("UTF-8"))
+    peticion = requests.post("http://154.38.171.54:5003/empleados", data=json.dumps(empleado, indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Empleado Guardado"
     return [res]
@@ -94,7 +94,7 @@ def GuardarEmpleado():
 def DeleteEmpleado(id):
     data = GE.getEmpleadoCodigoasd(id)
     if len(data):
-        peticion = requests.delete(f"http://192.168.1.6:5503/empleados/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5003/empleados/{id}")
         if peticion.status_code == 204:
             data.append({"message":  "Empleado eliminado correctamente"})
             return {

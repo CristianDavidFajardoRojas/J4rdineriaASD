@@ -63,7 +63,7 @@ def GuardarPago():
         except Exception as error:
             print(error)
                 
-    peticion = requests.post("http://192.168.1.6:5005", data=json.dumps(pagos, indent=4).encode("UTF-8"))
+    peticion = requests.post("http://154.38.171.54:5006/pagos", data=json.dumps(pagos, indent=4).encode("UTF-8"))
     res = peticion.json()
     res["Mensaje"] = "Pago Guardado"
     return [res]
@@ -71,7 +71,7 @@ def GuardarPago():
 def DeletePago(id):
     data = GP.getPagoCodigoasd(id)
     if len(data):
-        peticion = requests.delete(f"http://192.168.1.6:5505/pagos/{id}")
+        peticion = requests.delete(f"http://154.38.171.54:5006/pagos/{id}")
         if peticion.status_code == 204:
             data.append({"message":  "Pago eliminado correctamente"})
             return {

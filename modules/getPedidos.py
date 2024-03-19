@@ -7,12 +7,12 @@ import os
 
 #json-server storages/pedido.json -b 5006
 def dataPedidos():
-    peticion = requests.get("http://192.168.1.6:5006")
+    peticion = requests.get("http://154.38.171.54:5007/pedidos")
     data = peticion.json()
     return data
 
 def getPedidoCodigoasd(codigo):
-    peticion = requests.get(f"http://192.168.1.6:5506/pedidos/{codigo}")
+    peticion = requests.get(f"http://154.38.171.54:5007/pedidos/{codigo}")
     return [peticion.json()] if peticion.ok else []
 
 def getAllCodigoooHaha(codigo):

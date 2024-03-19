@@ -6,12 +6,12 @@ import modules.postEmpleados as PsEmpleados
 
 #json-server storages/empleados.json -b 5003
 def dataEmpleados():
-    peticion = requests.get("http://192.168.1.6:5003")
+    peticion = requests.get("http://154.38.171.54:5003/empleados")
     data = peticion.json()
     return data
 
 def getEmpleadoCodigoasd(codigo):
-    peticion = requests.get(f"http://192.168.1.6:5503/empleados/{codigo}")
+    peticion = requests.get(f"http://154.38.171.54:5003/empleados/{codigo}")
     return [peticion.json()] if peticion.ok else []
 
 def getPuestoAsd(puesto):
