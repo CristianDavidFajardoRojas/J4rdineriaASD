@@ -108,6 +108,47 @@ def DeleteProducto(id):
             "status": 400,
             }
     
+def ModificarProducto(id):
+    data = GP.DeleteProductoooIDasd(id)
+    if data is None:
+            print(f"""
+
+Id del producto no encontrado. """)
+    
+    while True:
+        try:
+            print(tabulate(data, headers="keys", tablefmt="rounded_grid"))
+            datoModificar = input(f"""
+Ingrese el dato que desea modificar: """)
+            nuevoValor = input(f"""
+Ingrese el nuevo valor para {datoModificar}: """)
+            if datoModificar in data[0]:
+                if datoModificar == "cantidadEnStock" or "" or "":
+                    data[0][datoModificar] = int(nuevoValor)
+                    break
+                else:
+                    data[0][datoModificar] = nuevoValor
+                    break
+            else:
+                 print(f"""
+Seleccion incorrecta""")
+                
+        except ValueError as error:
+            print(error)
+    
+    peticion = requests.put(f"http://154.38.171.54:5008/productos/{id}", data=json.dumps(data[0], indent=4).encode("UTF-8"))
+    res = peticion.json()
+    res["Mensaje"] = "Producto Modificado"
+    return [res]
+            
+        
+
+
+            
+
+        
+
+
 def menu():
     while True:
         os.system("clear")
@@ -129,17 +170,20 @@ def menu():
 
 Seleccione una opción: """)))
         if opcion == 1:
-                print(tabulate(GuardarProducto(), headers="keys", tablefmt="github"))
+                print(tabulate(GuardarProducto(), headers="keys", tablefmt="rounded_grid"))
                 input(f"""
 Escriba una tecla para continuar: """)
             
         elif opcion == 2:
                 idProducto = input("Ingrese el id del producto: ")
-                print(tabulate(DeleteProducto(idProducto), headers="keys", tablefmt="github"))
+                print(tabulate(DeleteProducto(idProducto), headers="keys", tablefmt="rounded_grid"))
                 input(f"""
 Escriba una tecla para continuar: """)
             
-        
+        elif opcion == 3:
+                idProducto = input("Ingrese el id del producto: ")
+                ModificarProducto(idProducto)
+
         elif opcion == 0:
                 break
             
