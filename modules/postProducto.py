@@ -11,7 +11,7 @@ def GuardarProducto():
     while True:
         try:
             if not producto.get("codigo_producto"):
-                codigo = input("Ingrese el codigo del prodcuto: ")
+                codigo = input("Ingrese el codigo del producto: ")
                 if re.match(r'^[A-Z]{2}-\d{3}$', codigo) is not None:
                     if GP.getProductoCodigo(codigo):
                         raise Exception("El codigo ingresado ya existe.")
@@ -118,16 +118,23 @@ Id del producto no encontrado. """)
     while True:
         try:
             print(tabulate(data, headers="keys", tablefmt="rounded_grid"))
-            datoModificar = input(f"""
-Ingrese el dato que desea modificar: """)
+            print(f"""
+Datos para modificar: """)
+            for i, (val, asd) in enumerate(data[0].items()):
+                print(f"{i+1}. {val}")
+
+            opcion = int(input(f"""
+Seleccione una opción: """))
+            datoModificar = list(data[0].keys())[opcion - 1]
             nuevoValor = input(f"""
 Ingrese el nuevo valor para {datoModificar}: """)
             if datoModificar in data[0]:
-                if datoModificar == "cantidadEnStock" or "" or "":
+                if datoModificar == "cantidadEnStock" or "precio_venta" or "precio_proveedor":
                     data[0][datoModificar] = int(nuevoValor)
                     break
                 else:
                     data[0][datoModificar] = nuevoValor
+                    print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
                     break
             else:
                  print(f"""
@@ -162,6 +169,7 @@ def menu():
 
 1. Guardar un producto nuevo.
 2. Eliminar un producto.
+3. Modificiar un producto.
 
 0. Regresar                                                                                                    
  """)
@@ -181,8 +189,10 @@ Escriba una tecla para continuar: """)
 Escriba una tecla para continuar: """)
             
         elif opcion == 3:
-                idProducto = input("Ingrese el id del producto: ")
-                ModificarProducto(idProducto)
+                idEmpleado = input("Ingrese el id del Empleado: ")
+                print(tabulate(ModificarProducto(idEmpleado), headers="keys", tablefmt="github"))
+                input(f"""
+Escriba una tecla para continuar: """)
 
         elif opcion == 0:
                 break

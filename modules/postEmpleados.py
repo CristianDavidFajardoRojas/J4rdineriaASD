@@ -110,6 +110,46 @@ def DeleteEmpleado(id):
             "status": 400,
             }
 
+def ModificarUnEmpleado(id):
+    data = GE.DeleteAsdHaha(id)
+    if data is None:
+            print(f"""
+
+Id del empleado no encontrado. """)
+    
+    while True:
+        try:
+            print(tabulate(data, headers="keys", tablefmt="rounded_grid"))
+            print(f"""
+Datos para modificar: """)
+            for i, (val, asd) in enumerate(data[0].items()):
+                print(f"{i+1}. {val}")
+
+            opcion = int(input(f"""
+Seleccione una opción: """))
+            datoModificar = list(data[0].keys())[opcion - 1]
+            nuevoValor = input(f"""
+Ingrese el nuevo valor para {datoModificar}: """)
+            if datoModificar in data[0]:
+                if datoModificar == "codigo_empleado" or "codigo_jefe":
+                    data[0][datoModificar] = int(nuevoValor)
+                    break
+                else:
+                    data[0][datoModificar] = nuevoValor
+                    print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
+                    break
+            else:
+                 print(f"""
+Seleccion incorrecta""")
+                
+        except ValueError as error:
+            print(error)
+    
+    peticion = requests.put(f"http://154.38.171.54:5003/empleados/{id}", data=json.dumps(data[0], indent=4).encode("UTF-8"))
+    res = peticion.json()
+    res["Mensaje"] = "Empleado Modificado"
+    return [res]
+
 def menu():
     while True:
         os.system("clear")
@@ -123,7 +163,8 @@ def menu():
           
 1. Guardar un nuevo empleado.
 2. Eliminar un empleado.
-          
+3. Modificar un empleado.              
+
 0. Regresar.
           """)
         opcion = int(input(f"""
@@ -140,6 +181,13 @@ Escriba una tecla para continuar: """)
                 print(tabulate(DeleteEmpleado(idEmpleado), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)
+                
+        elif opcion == 3:
+                idEmpleado = input("Ingrese el id del Empleado: ")
+                print(tabulate(ModificarUnEmpleado(idEmpleado), headers="keys", tablefmt="github"))
+                input(f"""
+Escriba una tecla para continuar: """)
+
 
         elif opcion ==0:
             break

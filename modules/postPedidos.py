@@ -103,6 +103,46 @@ def DeletePedido(id):
             "status": 400,
             }
 
+def ModificarPedido(id):
+    data = GP.DeletePedidoasdasd(id)
+    if data is None:
+            print(f"""
+
+Id del pedido no encontrado. """)
+    
+    while True:
+        try:
+            print(tabulate(data, headers="keys", tablefmt="rounded_grid"))
+            print(f"""
+Datos para modificar: """)
+            for i, (val, asd) in enumerate(data[0].items()):
+                print(f"{i+1}. {val}")
+
+            opcion = int(input(f"""
+Seleccione una opción: """))
+            datoModificar = list(data[0].keys())[opcion - 1]
+            nuevoValor = input(f"""
+Ingrese el nuevo valor para {datoModificar}: """)
+            if datoModificar in data[0]:
+                if datoModificar == "codigo_pedido" or "codigo_cliente":
+                    data[0][datoModificar] = int(nuevoValor)
+                    break
+                else:
+                    data[0][datoModificar] = nuevoValor
+                    print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
+                    break
+            else:
+                 print(f"""
+Seleccion incorrecta""")
+                
+        except ValueError as error:
+            print(error)
+    
+    peticion = requests.put(f"http://154.38.171.54:5007/pedidos/{id}", data=json.dumps(data[0], indent=4).encode("UTF-8"))
+    res = peticion.json()
+    res["Mensaje"] = "Pedido Modificado"
+    return [res]
+
 def menu():
     while True:
         os.system("clear")
@@ -116,6 +156,7 @@ def menu():
 
 1. Guardar un producto nuevo.
 2. Eliminar un pedido.
+3. Modificar pedido.
 
 0. Regresar                                                                                                    
  """)
@@ -133,6 +174,13 @@ Escriba una tecla para continuar: """)
                 print(tabulate(DeletePedido(idPedido), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)
+                
+        elif opcion == 3:
+                idPedido = input("Ingrese el id del Pedido: ")
+                print(tabulate(ModificarPedido(idPedido), headers="keys", tablefmt="github"))
+                input(f"""
+Escriba una tecla para continuar: """)
+
 
         if opcion == 0:
             break

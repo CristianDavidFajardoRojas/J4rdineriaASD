@@ -138,6 +138,46 @@ def DeleteClientes(id):
             "status": 400,
             }
 
+def ModificarCliente(id):
+    data = data = GC.DeleteClienteCodigoasd(id)
+    if data is None:
+            print(f"""
+
+Id del Cliente no encontrado. """)
+    
+    while True:
+        try:
+            print(tabulate(data, headers="keys", tablefmt="rounded_grid"))
+            print(f"""
+Datos para modificar: """)
+            for i, (val, asd) in enumerate(data[0].items()):
+                print(f"{i+1}. {val}")
+
+            opcion = int(input(f"""
+Seleccione una opción: """))
+            datoModificar = list(data[0].keys())[opcion - 1]
+            nuevoValor = input(f"""
+Ingrese el nuevo valor para {datoModificar}: """)
+            if datoModificar in data[0]:
+                if datoModificar == "codigo_empleado_rep_ventas" or "codigo_cliente" or "limite_credito":
+                    data[0][datoModificar] = int(nuevoValor)
+                    break
+                else:
+                    data[0][datoModificar] = nuevoValor
+                    print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
+                    break
+            else:
+                 print(f"""
+Seleccion incorrecta""")
+                
+        except ValueError as error:
+            print(error)
+    
+    peticion = requests.put(f"http://154.38.171.54:5001/cliente/{id}", data=json.dumps(data[0], indent=4).encode("UTF-8"))
+    res = peticion.json()
+    res["Mensaje"] = "Cliente Modificado"
+    return [res]
+
 def menu():
     while True:
         os.system("clear")
@@ -150,6 +190,7 @@ def menu():
 
 1. Guardar un cliente nuevo.
 2. Eliminar un cliente.
+3. Modificar un cliente.
               
 0. Regresar
 """)
@@ -165,6 +206,12 @@ Escriba una tecla para continuar: """)
         elif opcion == 2:
                 idCliente = input("Ingrese el id del cliente: ")
                 print(tabulate(DeleteClientes(idCliente), headers="keys", tablefmt="github"))
+                input(f"""
+Escriba una tecla para continuar: """)
+                
+        elif opcion == 3:
+                idEmpleado = input("Ingrese el id del Empleado: ")
+                print(tabulate(ModificarCliente(idEmpleado), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)
 

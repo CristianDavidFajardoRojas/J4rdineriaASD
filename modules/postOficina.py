@@ -91,6 +91,42 @@ def DeleteOficina(id):
             "status": 400,
             }
 
+def ModificarOficina(id):
+    data = GO.DeleteOficinaHahaDoges(id)
+    if data is None:
+            print(f"""
+
+Id de la oficina no encontrado. """)
+    
+    while True:
+        try:
+            print(tabulate(data, headers="keys", tablefmt="rounded_grid"))
+            print(f"""
+Datos para modificar: """)
+            for i, (val, asd) in enumerate(data[0].items()):
+                print(f"{i+1}. {val}")
+
+            opcion = int(input(f"""
+Seleccione una opción: """))
+            datoModificar = list(data[0].keys())[opcion - 1]
+            nuevoValor = input(f"""
+Ingrese el nuevo valor para {datoModificar}: """)
+            if datoModificar in data[0]:
+                data[0][datoModificar] = nuevoValor
+                print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
+                break
+            else:
+                 print(f"""
+Seleccion incorrecta""")
+                
+        except ValueError as error:
+            print(error)
+    
+    peticion = requests.put(f"http://154.38.171.54:5005/oficinas/{id}", data=json.dumps(data[0], indent=4).encode("UTF-8"))
+    res = peticion.json()
+    res["Mensaje"] = "Oficina Modificado"
+    return [res]
+
 def menu():
     while True:
         os.system("clear")
@@ -120,6 +156,12 @@ Escriba una tecla para continuar: """)
         elif opcion == 2:
                 idOficina = input("Ingrese el id de la oficina: ")
                 print(tabulate(DeleteOficina(idOficina), headers="keys", tablefmt="github"))
+                input(f"""
+Escriba una tecla para continuar: """)
+                
+        elif opcion == 3:
+                idEmpleado = input("Ingrese el id de la oficina: ")
+                print(tabulate(ModificarOficina(idEmpleado), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)
             
