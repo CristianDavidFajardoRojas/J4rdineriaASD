@@ -159,13 +159,11 @@ Seleccione una opción: """))
             nuevoValor = input(f"""
 Ingrese el nuevo valor para {datoModificar}: """)
             if datoModificar in data[0]:
-                if datoModificar == "codigo_empleado_rep_ventas" or "codigo_cliente" or "limite_credito":
+                if data[0][datoModificar] == data[0]["codigo_cliente"] or data[0][datoModificar] == data[0]["limite_credito"] or data[0][datoModificar]== data[0]["codigo_empleado_rep_ventas"]:
                     data[0][datoModificar] = int(nuevoValor)
-                    break
                 else:
                     data[0][datoModificar] = nuevoValor
-                    print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
-                    break
+                break
             else:
                  print(f"""
 Seleccion incorrecta""")
@@ -182,11 +180,14 @@ def menu():
     while True:
         os.system("clear")
         print(f"""
-    ___       __          _       _      __                _________            __           
-   /   | ____/ /___ ___  (_)___  (_)____/ /_____ ______   / ____/ (_)__  ____  / /____  _____
-  / /| |/ __  / __ `__ \/ / __ \/ / ___/ __/ __ `/ ___/  / /   / / / _ \/ __ \/ __/ _ \/ ___/
- / ___ / /_/ / / / / / / / / / / (__  ) /_/ /_/ / /     / /___/ / /  __/ / / / /_/  __(__  ) 
-/_/  |_\__,_/_/ /_/ /_/_/_/ /_/_/____/\__/\__,_/_/      \____/_/_/\___/_/ /_/\__/\___/____/  
+
+    ___       __          _       _      __                     _________            __           
+   /   | ____/ /___ ___  (_)___  (_)____/ /__________ ______   / ____/ (_)__  ____  / /____  _____
+  / /| |/ __  / __ `__ \/ / __ \/ / ___/ __/ ___/ __ `/ ___/  / /   / / / _ \/ __ \/ __/ _ \/ ___/
+ / ___ / /_/ / / / / / / / / / / (__  ) /_/ /  / /_/ / /     / /___/ / /  __/ / / / /_/  __(__  ) 
+/_/  |_\__,_/_/ /_/ /_/_/_/ /_/_/____/\__/_/   \__,_/_/      \____/_/_/\___/_/ /_/\__/\___/____/  
+                                                                                                  
+
 
 1. Guardar un cliente nuevo.
 2. Eliminar un cliente.

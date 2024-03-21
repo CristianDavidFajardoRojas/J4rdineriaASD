@@ -131,13 +131,11 @@ Seleccione una opción: """))
             nuevoValor = input(f"""
 Ingrese el nuevo valor para {datoModificar}: """)
             if datoModificar in data[0]:
-                if datoModificar == "codigo_empleado" or "codigo_jefe":
+                if data[0][datoModificar] == data[0]["codigo_jefe"] or data[0][datoModificar] == data[0]["codigo_empleado"]:
                     data[0][datoModificar] = int(nuevoValor)
-                    break
                 else:
                     data[0][datoModificar] = nuevoValor
-                    print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
-                    break
+                break
             else:
                  print(f"""
 Seleccion incorrecta""")

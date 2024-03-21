@@ -127,15 +127,13 @@ Datos para modificar: """)
 Seleccione una opción: """))
             datoModificar = list(data[0].keys())[opcion - 1]
             nuevoValor = input(f"""
-Ingrese el nuevo valor para {datoModificar}: """)
+Ingrese el nuevo valor para {datoModificar}: """)     
             if datoModificar in data[0]:
-                if datoModificar == "cantidadEnStock" or "precio_venta" or "precio_proveedor":
+                if data[0][datoModificar] == data[0]["cantidadEnStock"] or data[0][datoModificar] == data[0]["precio_venta"] or data[0][datoModificar]== data[0]["precio_proveedor"]:
                     data[0][datoModificar] = int(nuevoValor)
-                    break
                 else:
                     data[0][datoModificar] = nuevoValor
-                    print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
-                    break
+                break        
             else:
                  print(f"""
 Seleccion incorrecta""")
@@ -189,7 +187,7 @@ Escriba una tecla para continuar: """)
 Escriba una tecla para continuar: """)
             
         elif opcion == 3:
-                idEmpleado = input("Ingrese el id del Empleado: ")
+                idEmpleado = input("Ingrese el id del producto: ")
                 print(tabulate(ModificarProducto(idEmpleado), headers="keys", tablefmt="github"))
                 input(f"""
 Escriba una tecla para continuar: """)

@@ -124,13 +124,11 @@ Seleccione una opción: """))
             nuevoValor = input(f"""
 Ingrese el nuevo valor para {datoModificar}: """)
             if datoModificar in data[0]:
-                if datoModificar == "codigo_pedido" or "codigo_cliente":
+                if data[0][datoModificar] == data[0]["codigo_pedido"] or data[0][datoModificar] == data[0]["codigo_cliente"]:
                     data[0][datoModificar] = int(nuevoValor)
-                    break
                 else:
                     data[0][datoModificar] = nuevoValor
-                    print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
-                    break
+                break
             else:
                  print(f"""
 Seleccion incorrecta""")
@@ -154,7 +152,7 @@ def menu():
 /_/  |_\__,_/_/ /_/ /_/_/_/ /_/_/____/\__/_/   \__,_/_/     /_/    \___/\__,_/_/\__,_/\____/____/  
                                                                                                    
 
-1. Guardar un producto nuevo.
+1. Guardar un pedido nuevo.
 2. Eliminar un pedido.
 3. Modificar pedido.
 

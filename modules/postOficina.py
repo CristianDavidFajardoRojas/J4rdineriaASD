@@ -85,7 +85,7 @@ def DeleteOficina(id):
     else:
         return {
                 "body":[{
-                    "Mensaje": "Oficina no encontrado.",
+                    "Mensaje": "Oficina no encontrada.",
                     "id": id,
             }],
             "status": 400,
@@ -113,7 +113,6 @@ Seleccione una opción: """))
 Ingrese el nuevo valor para {datoModificar}: """)
             if datoModificar in data[0]:
                 data[0][datoModificar] = nuevoValor
-                print(tabulate(data[0], headers="keys", tablefmt="rounded_grid"))
                 break
             else:
                  print(f"""
@@ -141,6 +140,8 @@ def menu():
 
 
 1. Guardar una oficina nueva.
+2. Eliminar una oficina.
+3. Modificar una oficina.
 
 0. Regresar                                                                                                    
  """)
